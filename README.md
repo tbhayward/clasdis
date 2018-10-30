@@ -7,13 +7,17 @@ To install
 `cd clasdis-nocernlib` 
 `make`
 
-To get the command line options
+Example
+`./clasdis --trig 10000000 --nmax 10000`
+will write `gemc lund type` data files with 10K events in the directory `eventfiles` (should be created by hand) with total of 10M events.
+
+To get more command line options
 
 `./clasdis --help`
 
  clasDIS [options]
-       option  value      default  comment
-   --v    verbos_level    0     additional printout
+>       option  value      default  comment
+>   --v    verbos_level    0     additional printout
    --trig nevents         10     number of triggers
    --beam beam_energy     10.6   e- momentum in GeV
    --e e-min e-max  min[750] max[0.95*e] Eprime in GeV
@@ -46,6 +50,3 @@ To get the command line options
       --nmax   value     0  maximum events in a file
       --single   value   .FALSE. /true gen fixed tracks
       
-Example
-`./clasdis --trig 10000000 --nmax 10000`
-will write `gemc lund type` data files with 10K events in the directory `eventfiles` (should be created by hand) with total of 10M events.
