@@ -38,7 +38,7 @@ To get more command line options
 --accclas12            acceptance for clas12 ON
 --pid  LUND_ID  0   0-all,211-pip,3122-Lambda..
 --norand             keep the old random number
---mstu           1    set mstu(16)=2
+--mstu           1    set MSTU(16)=2 (LEPTO manual)
 --parj12        0.4        set PARJ(12)
 --parj33        0.3        set PARJ(33)
 --lst15         145        set the PDF set
