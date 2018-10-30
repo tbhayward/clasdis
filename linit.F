@@ -1,6 +1,5 @@
 C **********************************************************************
-
-
+C
       SUBROUTINE LINIT(LFILE,LEPIN,PLZ,PPZ,INTER)
       
       IMPLICIT NONE
@@ -15,6 +14,7 @@ C...Numerical integration to obtain total cross-section.
      &Q2MIN,Q2MAX,W2MIN,W2MAX,ILEP,INU,IG,IZ
       REAL PSAVE,XMIN,XMAX,YMIN,YMAX,Q2MIN,Q2MAX,W2MIN,W2MAX
       INTEGER KSAVE,ILEP,INU,IG,IZ
+      character*100  clasdispdf
       SAVE /LINTRL/
 
 *
@@ -113,10 +113,12 @@ C...Numerical integration to obtain total cross-section.
 *PEPSI>>
       external leptod   ! MB, 15-Nov-2002, Load default PDF names
 
+      call getenv('CLASDIS_PDF',clasdispdf)
       DO I=1,IMXPDF
       IF(LST(15).eq.IPDFNAM(1,I)) THEN
-         CUNPOL=CPDFNAM(1,IPDFNAM(2,I))
-         CPOL  =CPDFNAM(2,IPDFNAM(2,I))
+      write(CUNPOL,'(A,A)') 
+     6trim(clasdispdf),trim(CPDFNAM(1,IPDFNAM(2,I)))
+      write(CPOL,'(A,A)') trim(clasdispdf),trim(CPDFNAM(2,IPDFNAM(2,I)))
       ENDIF
       ENDDO
 

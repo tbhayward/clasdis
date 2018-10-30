@@ -307,46 +307,46 @@ C...Internally used variables.
 
       DATA IPLST/0,11,12,7*0/
       DATA CPDFNAM /
-     1     './pdf/MRSa1.dat','./pdf/polnloA.dat', 
-     2     './pdf/MRSa1.dat','./pdf/polnloB.dat',
-     3     './pdf/MRSa1.dat','./pdf/polnloC.dat',
-     4     ' ','./pdf/polparA.dat',' ','./pdf/polparB.dat',
-     6     ' ','./pdf/polparC.dat',
-     7     ' ','./pdf/STDNLO.GRID',' ','./pdf/VALNLO.GRID',
-     9     ' ','./pdf/STDLO.GRID',' ','./pdf/VALLO.GRID',
-     1     ' ','./pdf/S1NLO.GRID',
-     2     ' ','./pdf/S2NLO.GRID',
-     3     ' ','./pdf/S3NLO.GRID',
-     4     ' ','./pdf/S1LO.GRID',
-     5     ' ','./pdf/S2LO.GRID',
-     6     ' ','./pdf/S3LO.GRID',
-     7     './pdf/cteq4lq.tbl',' ',
-     8     './pdf/MRSasq.dat','./pdf/MRSalq.dat',
+     1     '/MRSa1.dat','/polnloA.dat', 
+     2     '/MRSa1.dat','/polnloB.dat',
+     3     '/MRSa1.dat','/polnloC.dat',
+     4     ' ','/polparA.dat',' ','/polparB.dat',
+     6     ' ','/polparC.dat',
+     7     ' ','/STDNLO.GRID',' ','/VALNLO.GRID',
+     9     ' ','/STDLO.GRID',' ','/VALLO.GRID',
+     1     ' ','/S1NLO.GRID',
+     2     ' ','/S2NLO.GRID',
+     3     ' ','/S3NLO.GRID',
+     4     ' ','/S1LO.GRID',
+     5     ' ','/S2LO.GRID',
+     6     ' ','/S3LO.GRID',
+     7     '/cteq4lq.tbl',' ',
+     8     '/MRSasq.dat','/MRSalq.dat',
 ****** grsv with grv98 a unpol refenrence |bs>*********************
-     9     './pdf/grv98lo.grid','./pdf/std2000_lo_g1.grid',           
-     1     './pdf/grv98lo.grid','./pdf/val2000_lo_g1.grid',
-     2     './pdf/grv98nlo.grid','./pdf/std2000_nlo_g1.grid',
-     3     './pdf/grv98nlo.grid','./pdf/std2000_nlo_g1.grid',
+     9     '/grv98lo.grid','/std2000_lo_g1.grid',           
+     1     '/grv98lo.grid','/val2000_lo_g1.grid',
+     2     '/grv98nlo.grid','/std2000_nlo_g1.grid',
+     3     '/grv98nlo.grid','/std2000_nlo_g1.grid',
 ****** CTEQ 5 unpol ***********************************************
-     4     './pdf/cteq5l.tbl',' ',
-     5     './pdf/cteq5m.tbl',' ',
-     6     './pdf/cteq5m1.tbl',' ',
+     4     '/cteq5l.tbl',' ',
+     5     '/cteq5m.tbl',' ',
+     6     '/cteq5m1.tbl',' ',
 ****** MRS 99 unpol ***********************************************
-     7     './pdf/cor01.dat',' ',
-     8     './pdf/cor02.dat',' ',
-     9     './pdf/cor03.dat',' ',
-     1     './pdf/cor04.dat',' ',
-     2     './pdf/cor05.dat',' ',
-     3     './pdf/cor06.dat',' ',
-     4     './pdf/cor07.dat',' ',
-     5     './pdf/cor08.dat',' ',
-     6     './pdf/cor09.dat',' ',
-     7     './pdf/cor10.dat',' ',
-     8     './pdf/cor11.dat',' ',
-     9     './pdf/cor12.dat',' ', 
-     1     './pdf/cteq6l.tbl',' ',
-     2     './pdf/cteq6d.tbl',' ',
-     3     './pdf/cteq6m.tbl',' ' /
+     7     '/cor01.dat',' ',
+     8     '/cor02.dat',' ',
+     9     '/cor03.dat',' ',
+     1     '/cor04.dat',' ',
+     2     '/cor05.dat',' ',
+     3     '/cor06.dat',' ',
+     4     '/cor07.dat',' ',
+     5     '/cor08.dat',' ',
+     6     '/cor09.dat',' ',
+     7     '/cor10.dat',' ',
+     8     '/cor11.dat',' ',
+     9     '/cor12.dat',' ', 
+     1     '/cteq6l.tbl',' ',
+     2     '/cteq6d.tbl',' ',
+     3     '/cteq6m.tbl',' ' /
       DATA IPDFNAM /
      1     107,1,108,2,109,3,
      4     113,4,114,5,115,6,
@@ -467,18 +467,23 @@ C...Numerical integration to obtain total cross-section.
       REAL ULMASS,ULANGL,UMIN,UMAX,S
       INTEGER LQCD,LTM,IPMAX,IP,IW,IX
       REAL TI1,TI2
-
+      character*100  clasdispdf
+c
       INTEGER LSTW(40)
       REAL PARLW(30)
       DATA PI/3.1415927/,NCALL/0/
 
 *PEPSI>>
       external leptod   ! MB, 15-Nov-2002, Load default PDF names
-
+c
+      call getenv('CLASDIS_PDF',clasdispdf)
       DO I=1,IMXPDF
       IF(LST(15).eq.IPDFNAM(1,I)) THEN
-         CUNPOL=CPDFNAM(1,IPDFNAM(2,I))
-         CPOL  =CPDFNAM(2,IPDFNAM(2,I))
+      print *,i,IPDFNAM(2,I),'2-',CPDFNAM(1,IPDFNAM(2,I)),'-2'
+c
+      write(CUNPOL,'(A,A)') 
+     6trim(clasdispdf),trim(CPDFNAM(1,IPDFNAM(2,I)))
+      write(CPOL,'(A,A)') trim(clasdispdf),trim(CPDFNAM(2,IPDFNAM(2,I)))
       ENDIF
       ENDDO
 
@@ -10270,7 +10275,8 @@ C...  Numerical integration to obtain total cross-section.
       REAL ULMASS,ULANGL,UMIN,UMAX
       INTEGER LQCD,LTM,IPMAX,IP,IW,IX
       REAL TI1,TI2
-
+      character*100  clasdispdf
+c
       INTEGER LSTW(40)
       REAL PARLW(30)
 
@@ -10280,10 +10286,16 @@ C...  Numerical integration to obtain total cross-section.
       LST3=LST(3)
 
 *MM,HI   >>
+      call getenv('CLASDIS_PDF',clasdispdf)
       DO I=1,IMXPDF
          IF(LST(15).eq.IPDFNAM(1,I)) THEN
-            CUNPOL=CPDFNAM(1,IPDFNAM(2,I))
-            CPOL  =CPDFNAM(2,IPDFNAM(2,I))
+      print *,i,IPDFNAM(2,I),'1-',CPDFNAM(1,IPDFNAM(2,I)),'-1'
+c
+      write(CUNPOL,'(A,A)') 
+     6trim(clasdispdf),trim(CPDFNAM(1,IPDFNAM(2,I)))
+      write(CPOL,'(A,A)') trim(clasdispdf),trim(CPDFNAM(2,IPDFNAM(2,I)))
+c            CUNPOL=CPDFNAM(1,IPDFNAM(2,I))
+c            CPOL  =CPDFNAM(2,IPDFNAM(2,I))
          ENDIF
       ENDDO
       IF (LST(15).GE.113.AND.LST(15).LE.115) CALL POLINI

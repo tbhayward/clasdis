@@ -2060,10 +2060,10 @@ c================================================================
       Parameter (Isetmax=9)
       Character Flnm(Isetmax)*16, Tablefile*40
       Data (Flnm(I), I=1,Isetmax)
-     > / './pdf/cteq5m.tbl', './pdf/cteq5d.tbl', './pdf/cteq5l.tbl', 
-     >   './pdf/cteq5hj.tbl'
-     > , './pdf/cteq5hq.tbl', './pdf/cteq5f3.tbl', './pdf/cteq5f4.tbl'
-     > , './pdf/cteq5m1.tbl', './pdf/ctq5hq1.tbl'  /
+     > / '/cteq5m.tbl', '/cteq5d.tbl', '/cteq5l.tbl', 
+     >   '/cteq5hj.tbl'
+     > , '/cteq5hq.tbl', '/cteq5f3.tbl', '/cteq5f4.tbl'
+     > , '/cteq5m1.tbl', '/ctq5hq1.tbl'  /
       Data Tablefile / 'test.tbl' /
       Data Isetold, Isetmin, Isettest / -987, 1, 911 /
       save
@@ -2125,7 +2125,7 @@ C                             ********************
       Parameter (Isetmax0=3)
       Character Flnm(Isetmax0)*20, nn*3, Tablefile*40
       Data (Flnm(I), I=1,Isetmax0)
-     > / './pdf/cteq6l.tbl', './pdf/cteq6d.tbl', './pdf/cteq6m.tbl' /
+     > / '/cteq6l.tbl', '/cteq6d.tbl', '/cteq6m.tbl' /
       Data Isetold, Isetmin0, Isetmin1, Isetmax1 /-987,1,101,140/
       save
 

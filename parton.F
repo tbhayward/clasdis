@@ -480,13 +480,16 @@ C     THIS IS THE NEW  "G" FIT -- Feb 1995 -- standard Q^2 range
       DATA XMIN,XMAX,QSQMIN,QSQMAX/1.D-5,1.D0,5.D0,1310720.D0/
       DATA N0/2,5,5,9,0,0,9,9/
       DATA INIT/0/
+      character*100  pdffile,clasdispdf
  
  
       xsave=x
  
       IF(INIT.NE.0) GOTO 10
       INIT=1
-      OPEN(IPLST(2),FILE='./pdf/MRSa1.dat',STATUS='OLD')
+      call getenv('CLASDIS_PDF',clasdispdf)
+      write(pdffile,'(A,A)') trim(clasdispdf),'/MRSa1.dat'
+      OPEN(IPLST(2),FILE=pdffile,STATUS='OLD')
       DO 20 N=1,nx-1
          DO 20 M=1,19
             READ(IPLST(2),50)F(1,N,M),F(2,N,M),F(3,N,M),F(4,N,M),
@@ -4100,6 +4103,8 @@ c
      1          XSF(NX,NQ), XGF(NX,NQ), XG1P(NX,NQ), XG1N(NX,NQ),
      2          PARTON (NPART,NQ,NX-1), QS(NQ), XB(NX), XT(NARG), 
      3          NA(NARG), ARRF(NX+NQ) 
+      character*100  pdffile,clasdispdf
+c
       COMMON / INTINI / IINI
       SAVE XUF, XDF, XUBF, XDBF, XSF, XGF, XG1P, XG1N, NA, ARRF
 *...BJORKEN-X AND Q**2 VALUES OF THE GRID :
@@ -4139,23 +4144,29 @@ C          GOTO 60
 *    FILE - NO. = 44 FOR  LO 'VALENCE'  SCENARIO ( FIRST NUMBER IN THE 
 *                                                  GRID: 2.4395E-04 )
       IF (IINI.NE.0) GOTO 16
+      call getenv('CLASDIS_PDF',clasdispdf)
       IF (ISET.EQ.1) THEN
        IIREAD=11       
-       OPEN(UNIT=11,FILE='./pdf/std2000_nlo_g1.grid',STATUS='OLD')
+      write(pdffile,'(A,A)') trim(clasdispdf),'/std2000_nlo_g1.grid'
+        OPEN (11,FILE=pdffile,STATUS='old')   
       ELSE IF (ISET.EQ.2) THEN
        IIREAD=22
-       OPEN(UNIT=22,FILE='./pdf/val2000_nlo_g1.grid',STATUS='OLD')
+      write(pdffile,'(A,A)') trim(clasdispdf),'/val2000_nlo_g1.grid'
+       OPEN(UNIT=22,FILE=pdffile,STATUS='OLD')
       ELSE IF (ISET.EQ.3) THEN
        IIREAD=33       
-       OPEN(UNIT=33,FILE='./pdf/std2000_lo_g1.grid',STATUS='OLD')
+       write(pdffile,'(A,A)') trim(clasdispdf),'/std2000_lo_g1.grid'
+       OPEN(UNIT=33,FILE=pdffile,STATUS='OLD')
       ELSE IF (ISET.EQ.4) THEN
        IIREAD=44
-       OPEN(UNIT=44,FILE='./pdf/val2000_lo_g1.grid',STATUS='OLD')
+       write(pdffile,'(A,A)') trim(clasdispdf),'/val2000_lo_g1.grid'
+       OPEN(UNIT=44,FILE=pdffile,STATUS='OLD')
       ELSE
         WRITE(6,93)
   93    FORMAT (2X,'PARTON INTERPOLATION: ISET OUT OF RANGE')
         GOTO 60
       END IF
+        WRITE(6,*) 'Reading the pdf data from ',pdffile
 C
        DO 15 M = 1, NX-1
        DO 15 N = 1, NQ

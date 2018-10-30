@@ -863,11 +863,12 @@ C**********************************************************************
 C.. Read in the current status of the random number generator 
 
         COMMON/LUDATR/MRLU(6),RRLU(100)
-        INTEGER  MRLU
-        REAL  RRLU
+        INTEGER  MRLU,irannom
+        REAL  RRLU,RND
         SAVE /LUDATR/
 
         INTEGER       LFN,I1,I2    
+        integer*4 now(3)
         LOGICAL       EX
        
        INQUIRE(FILE="RNDMSTATUS",EXIST = EX)
@@ -877,6 +878,12 @@ C.. Read in the current status of the random number generator
        READ(LFN,*) (MRLU(I1),I1=1,5),
      & (RRLU(I2),I2=1,100)
        CLOSE(LFN)
+       ELSE ! randomize
+        call itime(now)     ! now(1)=hour, (2)=minute, (3)=second
+           irannom=10000*now(3)+100*now(2)+now(1)
+        print *,'Rndm numb. for this set->',irannom,now(1),now(2),now(3)
+           DO 100 iran=1,irannom
+ 100       RND=rand()
 
        ENDIF
 
