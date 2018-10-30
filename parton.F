@@ -3791,7 +3791,11 @@ C************************************************************************
      2          QS(NQ), XB(NX), XT(NARG), NA(NARG), ARRF(NX+NQ) 
       CHARACTER*80 LINE
       COMMON / INTINIP / IINIP
+c
+      character*100  pdffile,clasdispdf
+c
       SAVE XUVF, XDVF, XDEF, XUDF, XSF, XGF, NA, ARRF
+
 *
 *...BJORKEN-X AND Q**2 VALUES OF THE GRID :
        DATA QS / 0.8E0, 
@@ -3831,17 +3835,20 @@ C************************************************************************
 *
 *    SELECTION AND READING OF THE GRID : 
 *    (COMMENT: FIRST NUMBER IN THE FIRST LINE OF THE GRID)
+      call getenv('CLASDIS_PDF',clasdispdf)
       IF (ISET .EQ. 1) THEN
-        OPEN (11,FILE='./pdf/grv98lo.grid',STATUS='old')   ! 7.332E-05
+      write(pdffile,'(A,A)') trim(clasdispdf),'/grv98lo.grid'
       ELSE IF (ISET .EQ. 2) THEN
-        OPEN (11,FILE='./pdf/grv98nlm.grid',STATUS='old')  ! 1.015E-04
+      write(pdffile,'(A,A)') trim(clasdispdf),'/grv98nlm.grid'
       ELSE IF (ISET .EQ. 3) THEN
-        OPEN (11,FILE='./pdf/grv98nld.grid',STATUS='old')  ! 1.238E-04
+      write(pdffile,'(A,A)') trim(clasdispdf),'/grv98nld.grid'
       ELSE
         WRITE(6,93)
   93    FORMAT (2X,'NO OR INVALID PARTON SET CHOICE')
         STOP
       END IF
+        WRITE(6,*) 'Reading the pdf data from ',pdffile
+        OPEN (11,FILE=pdffile,STATUS='old')   ! 7.332E-05
       IINIP = 1
       READ(11,89) LINE
   89  FORMAT(A80)
