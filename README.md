@@ -28,7 +28,7 @@ To get more command line options
    --z                 0.3       z=E_pi/nu min value
    --zpos z-position      0    target z position in cm
    --zwidth z-width 0    width in z cm (zpos+/-zwidth)
-   --raster diameter 12   raster diameter in cm
+   --raster diameter 1.2   raster diameter in cm
    --radgen                   include radgen
    --radtab         generate radgen table for SIDIS
    --targ target proton   deuteron/neutron possible
