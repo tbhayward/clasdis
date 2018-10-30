@@ -16,7 +16,7 @@ To get more command line options
 `./clasdis --help`
 ```
  clasDIS [options]
-          option  value      default  comment
+    option  value      default  comment
    --v    verbos_level    0     additional printout
    --trig nevents         10     number of triggers
    --beam beam_energy     10.6   e- momentum in GeV
@@ -48,5 +48,4 @@ To get more command line options
 --parl3         0.64       set PARL(3)
 --HT    iht    0   higher twists on (LST(11)=iht)
       --nmax   value     0  maximum events in a file
-      --single   value   .FALSE. /true gen fixed tracks
-    ```  
+ 
