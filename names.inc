@@ -12,7 +12,7 @@
      6,cl_parj33,cl_parj41,cl_parj42,cl_parj4,cl_parj5
      6,cl_parj6,cl_parj7
       logical clasdisOK,ntOK,cl_radgen,cl_radtab,datfileOK,
-     6cl_her,cl_single
+     6cl_her,cl_single,cl_docker
       integer acce16,acceg1,accclas12,cl_gagid
       real cl_pol
       character*70 bosout,cl_path
@@ -34,5 +34,5 @@
      6cl_wmin,cl_wmax
       common /clasdisrad/ cl_radgen,cl_radtab
       common /clasdiscont1/clasdisOK,ntOK,cl_her,acce16,cl_single
-     6,acceg1,accclas12,cl_gagid
+     6,acceg1,accclas12,cl_gagid,cl_docker
       common /clasdisfile/ datfileOK,cl_outform,cl_path,datfilename

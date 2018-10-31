@@ -109,6 +109,7 @@ c
 ccc
       print *,'make the data file name',cl_beam_energy
       print *,'************************'
+c      
 c
       if(cl_beam_energy.lt.10.0) then
       write(ccuts,'(A,F5.3,A,F3.2,A,F3.2)') 'e',cl_beam_energy,
@@ -303,6 +304,7 @@ c
       cl_gagid=0               ! to write a new record gagid=211 
       cl_fld = 2250.0             ! default 2250 
       cl_single=.FALSE.
+      cl_docker=.FALSE.
       ntOK=.TRUE.
       acce16=0
       acceg1=0
@@ -512,6 +514,8 @@ c
            acce16=1
         elseif(cnumber.eq.'--single') then
            cl_single=.TRUE.
+        elseif(cnumber.eq.'--docker') then
+           cl_docker=.TRUE.
         elseif(cnumber.eq.'--hermes') then
            cl_her=.FALSE.
         elseif(cnumber.eq.'--acceg1') then
@@ -572,6 +576,7 @@ c23456789012345678901234567890123456789012345678901234567890123456789012
         print *,'     --datf       .TRUE.      write the output file'
         print *,'     --nmax   value     0  maximum events in a file'
         print *,'     --single   value   .FALSE. /true gen fixed tracks'
+        print *,'     --docker  .FALSE. gen a single file sidis.dat'
         return
         end
 c
@@ -1072,6 +1077,11 @@ c
 
 
           if (lFirst) then   ! open the file
+c
+           if(cl_docker) then
+             write(fname,'(A)') 'sidis.dat'
+             cl_nmax=cl_triggers+100
+           else
              call get_datfilename()
 
              jc = 0
@@ -1094,7 +1104,7 @@ c stay with numbers below 9999 for now
            endif 
              write(fname,'(A,A)') datfilename(1:jc),c8name
              write(6,'(A,A)') 'Data file Name ',fname
-
+           endif ! docker check
              OPEN(unit=41,file=fname,status='unknown')
              lFirst=.FALSE.
           endif
