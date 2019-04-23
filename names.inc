@@ -10,7 +10,8 @@
       real  cl_sma,cl_smb,cl_smc,cl_smd,cl_parl3,cl_fld
       real  cl_parj12,cl_parj2,cl_parj3,cl_parj21,cl_parj23,cl_parj24
      6,cl_parj33,cl_parj41,cl_parj42,cl_parj4,cl_parj5
-     6,cl_parj6,cl_parj7
+     6,cl_parj6,cl_parj7,cl_parj11
+     6,cl_parj14,cl_parj15,cl_parj16,cl_parj17
       logical clasdisOK,ntOK,cl_radgen,cl_radtab,datfileOK,
      6cl_her,cl_single,cl_docker
       integer acce16,acceg1,accclas12,cl_gagid
@@ -28,7 +29,8 @@
       common /claspepsi5/ cl_emin,cl_emax,cl_tmin,cl_tmax
       common /claspepsi55/ cl_parj2,cl_parj3,cl_parj4,cl_parj5,cl_parj6
      6     ,cl_parj7,cl_parj12,cl_parj21,cl_parj23,cl_parj24,cl_parj33
-     6     ,cl_parj41,cl_parj42
+     6     ,cl_parj41,cl_parj42,cl_parj11
+     6,cl_parj14,cl_parj15,cl_parj16,cl_parj17
       common /claspepsi6/ cl_smear,cl_sma,cl_smb,cl_smc,cl_smd
       common /claspepsi6/ cl_xmin,cl_xmax,cl_qmin,cl_qmax,
      6cl_wmin,cl_wmax

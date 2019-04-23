@@ -256,8 +256,12 @@ c      cl_parj3=0.2          ! harut
       cl_parj7=0.5
 
 
+      cl_parj11=0.7          ! default PARJ(11) fraction of spin 1 light mesons (rho)
       cl_parj12=0.4          ! default PARJ(12) fraction of spin 1 (affects K*s)
-      cl_parj21=0.3          ! default PARJ(21) for the width of P_T distribution  default in JETSET 0.36
+      cl_parj14=0.0          ! default PARJ(14) : (D = 0.) is the probability that a spin = 0 meson is produced with an orbital angular momentum 1, for a total spin = 1.
+      cl_parj15=0.0          ! defaultPARJ(15) : (D = 0.) is the probability that a spin = 1 meson is produced with an orbital angular momentum 1, for a total spin = 0.
+      cl_parj16=0.0          ! defaultPARJ(16) : (D = 0.) is the probability that a spin = 1 meson is produced with an orbital angular momentum 1, for a total spin = 1.
+      cl_parj17=0.0          ! defaultPARJ(17) : (D = 0.) is the probability that a spin = 1 meson i      cl_parj21=0.4          ! default PARJ(21) for the width of P_T distribution  default in JETSET 0.36
       cl_parj23=0.01 
       cl_parj24=2.
 
@@ -472,12 +476,31 @@ c
            i=i+1
            CALL GETARG(i,cnumber)
            cl_parj7=valnum(cnumber)
-
+        elseif(cnumber.eq.'--parj11'.and.i.lt.numopts) then
+           i=i+1
+           CALL GETARG(i,cnumber)
+           cl_parj11=valnum(cnumber)
 
         elseif(cnumber.eq.'--parj12'.and.i.lt.numopts) then
            i=i+1
            CALL GETARG(i,cnumber)
            cl_parj12=valnum(cnumber)
+        elseif(cnumber.eq.'--parj14'.and.i.lt.numopts) then
+           i=i+1
+           CALL GETARG(i,cnumber)
+           cl_parj14=valnum(cnumber)
+        elseif(cnumber.eq.'--parj15'.and.i.lt.numopts) then
+           i=i+1
+           CALL GETARG(i,cnumber)
+           cl_parj15=valnum(cnumber)
+        elseif(cnumber.eq.'--parj16'.and.i.lt.numopts) then
+           i=i+1
+           CALL GETARG(i,cnumber)
+           cl_parj16=valnum(cnumber)
+        elseif(cnumber.eq.'--parj17'.and.i.lt.numopts) then
+           i=i+1
+           CALL GETARG(i,cnumber)
+           cl_parj17=valnum(cnumber)
         elseif(cnumber.eq.'--parj21'.and.i.lt.numopts) then
            i=i+1
            CALL GETARG(i,cnumber)
@@ -564,7 +587,12 @@ c23456789012345678901234567890123456789012345678901234567890123456789012
         print *,'     --path  path    /home/avakian/w6   '
         print *,'     --norand             keep the old random number'
         print *,'     --mstu                     set mstu(16)=2'
+        print *,'     --parj11        0.5        set PARJ(11) rhos'
         print *,'     --parj12        0.4        set PARJ(12)'
+        print *,'     --parj14        0.0        set PARJ(15) S0L1J1'
+        print *,'     --parj15        0.0        set PARJ(16) S1L1J0'
+        print *,'     --parj16        0.0        set PARJ(17) S1L1J1'
+        print *,'     --parj17        0.0        set PARJ(12) S1L1J2'
         print *,'     --parj33        0.3        set PARJ(33)'
         print *,'     --lst15         145        set the PDF set'
         print *,'     --lst8          1        set QCD mechanism'
@@ -604,7 +632,12 @@ c
         print *,'parj(5) set to   :   ',cl_parj5
         print *,'parj(6) set to   :   ',cl_parj6  
         print *,'parj(7) set to   :   ',cl_parj7
+        print *,'parj(11) set to   :   ',cl_parj11  
         print *,'parj(12) set to   :   ',cl_parj12  
+        print *,'parj(14) set to   :   ',cl_parj14  
+        print *,'parj(15) set to   :   ',cl_parj15  
+        print *,'parj(16) set to   :   ',cl_parj16  
+        print *,'parj(17) set to   :   ',cl_parj17  
         print *,'parj(21) set to   :   ',cl_parj21  
         print *,'parj(23) set to   :   ',cl_parj23  
         print *,'parj(24) set to   :   ',cl_parj24  
@@ -737,7 +770,12 @@ C-----------------------------
        PARJ(7)=cl_parj7
 C-----------------------------
 C.. set parj(12)-suppress K*
+       PARJ(11)=cl_parj11
        PARJ(12)=cl_parj12
+       PARJ(14)=cl_parj14
+       PARJ(15)=cl_parj15
+       PARJ(16)=cl_parj16
+       PARJ(17)=cl_parj17
 C.. set parj(21)-P_T in fragmentation (default 0.36)
        PARJ(21)=cl_parj21
        PARJ(23)=cl_parj23
