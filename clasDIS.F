@@ -268,7 +268,7 @@ c      cl_parj3=0.2          ! harut
       cl_parj33=0.3          ! default PARJ(33) 0.8 define the remaining energy below which the fragmentation of a parton system is stopped and two final hadrons formed.
 
 c PARJ(41), PARJ(42) :  (D=0.3, 0.58 GeV$^{-2}$) give the $a$ and $b$ parameters of the symmetric Lund fragmentation function for MSTJ(11)=1, 4 and 5 (and MSTJ(11)=3 for ordinary hadrons).
-      cl_parj41=0.30         ! default
+      cl_parj41=1.2        ! default
       cl_parj42=0.58         ! default
 c      cl_parj41=1.13         ! HERMES 
 c      cl_parj42=0.37         ! HERMES 
@@ -276,7 +276,7 @@ c      cl_parj42=0.37         ! HERMES
       cl_mstu=1              ! default mstu(16)
       cl_zpos=0.0            ! z-position
       cl_zwidth=0            ! z-width ( zpos+/-zwidth)
-      cl_rast=1.2            ! raster diameter in cm
+      cl_rast=0.2            ! raster diameter in cm
       cl_trad=20             ! target radius
       cl_pol=0.0               ! unpolarized target
       cl_beam_energy=10.6   ! def eg1-2000 (e16-5.754,e1f-5.498)
@@ -587,13 +587,16 @@ c23456789012345678901234567890123456789012345678901234567890123456789012
         print *,'     --path  path    /home/avakian/w6   '
         print *,'     --norand             keep the old random number'
         print *,'     --mstu                     set mstu(16)=2'
-        print *,'     --parj11        0.5        set PARJ(11) rhos'
+        print *,'     --parj11        0.7        set PARJ(11) rhos'
         print *,'     --parj12        0.4        set PARJ(12)'
         print *,'     --parj14        0.0        set PARJ(15) S0L1J1'
         print *,'     --parj15        0.0        set PARJ(16) S1L1J0'
         print *,'     --parj16        0.0        set PARJ(17) S1L1J1'
         print *,'     --parj17        0.0        set PARJ(12) S1L1J2'
+        print *,'     --parj21        0.5    width of P_T '
         print *,'     --parj33        0.3        set PARJ(33)'
+        print *,'     --parj41        1.2 default par in (1-z)^a'
+        print *,'     --parj42        0.58 par in exp(-bm_\perp^2/z)'
         print *,'     --lst15         145        set the PDF set'
         print *,'     --lst8          1        set QCD mechanism'
         print *,'     --hermes              set HERMES JETSET variables'
@@ -620,7 +623,7 @@ c
         print *,'Eprime tmin/tmax(GeV):         ',cl_tmin,cl_tmax  
         print *,'TARGET:              ', cl_target 
         print *,'TARGET z-position:   ', cl_zpos 
-        print *,'TARGET 1/2 width :   ', cl_zwidth
+        print *,'TARGET  width :   ', cl_zwidth
         print *,'raster diameter  :   ', cl_rast
         print *,'TARGET radius :      ', cl_trad
         print *,'polarization     :   ', cl_pol 
@@ -1097,6 +1100,7 @@ c
           integer jc,m,lund2geantid,gamp_id,icharge
           integer  beam_pid,targ_id,process_id
           data beam_pid/11/,targ_id/2212/,process_id/1/
+          real xelex,yeley,zelez
 c
           parl1=PARL(1)
           parl2=PARL(2)
@@ -1219,11 +1223,11 @@ c23456789012345678901234567890123456789012345678901234567890123456789012
                else           ! regular lund file
 c23456789012345678901234567890123456789012345678901234567890123456789012 
                  if(P(i,5).gt.-100) then
-                 gelex=gelex+V(i,1)*0.1
-                 geley=geley+V(i,2)*0.1
-                 gelez=V(i,3)*0.1+gelez
+                 xelex=gelex+V(i,1)*0.1
+                 yeley=geley+V(i,2)*0.1
+                 zelez=V(i,3)*0.1+gelez
                  write (41,102) i,plu(i,6),(k(i,j),j=1,4),(P(i,j),j=1,5)
-     6         ,gelex,geley,gelez
+     6         ,xelex,yeley,zelez
                  else
                  write (41,102) i,plu(i,6),(k(i,j),j=1,4),0.0,0.0
      6                            ,0.0,0.0,0.0,(V(i,j)*0.1,j=1,3)
@@ -1430,13 +1434,13 @@ c
        SELECT CASE (part_id)  
         CASE (3) ! electron
          gnele=gnele+1
-c         if(gnele.eq.1 .or. gelee.lt.pener ) then
+         if(gnele.eq.1 .or. gelee.lt.pener ) then
           gelee=pener
           gelet=theta
           gelef=phi
           gelex=xrast !gelee
           geley=yrast !gelet
-          gelez=cl_zpos+(2.*random_num()-1)*cl_zwidth !gelef
+          gelez=cl_zpos+(random_num()-0.5)*cl_zwidth !gelef
           if(cl_smear.eq.1) call smear(part_id,gelee,gelet,gelef)  ! smear 
           anu=cl_beam_energy-gelee
           gq2=2.*cl_beam_energy*gelee*(1.0-cos(gelet))
@@ -1460,7 +1464,7 @@ c        print *,'q2',gq2,vdotm(qiu4,qiu4,4)
           gxb=gq2/2.0/amp/anu
           gelebits=parent_id
 
-c         endif 
+         endif 
         CASE (9) ! pi-
          gnpim=gnpim+1
          if(gnpim.eq.1 .or. gpime.lt.pener) then
@@ -1866,9 +1870,9 @@ c       also add in lund
 c
          if(ggamp.gt.0) then
            N=N+1                ! add gamma
-           k(N,1)=0             ! 1-for final particles
+           k(N,1)=1             ! 1-for final particles
            k(N,2)=22            ! lund-ID for photon 
-           k(N,3)=0             ! no parent 
+           k(N,3)=1             ! parent initial electron 
            k(N,4)=0             ! no doughter 
            do j=1,3
              P(N,j)=PhRAD(j)
