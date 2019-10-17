@@ -109,7 +109,6 @@ c
 ccc
       print *,'make the data file name',cl_beam_energy
       print *,'************************'
-c      
 c
       if(cl_beam_energy.lt.10.0) then
       write(ccuts,'(A,F5.3,A,F3.2,A,F3.2)') 'e',cl_beam_energy,
@@ -250,33 +249,36 @@ c      cl_parj2=0.1          ! harut
 c      cl_parj3=0.2          ! harut
 
 
-      cl_parj4=0.05
+      cl_parj4=0.05 !(1/3)P(ud1)/P(ud0), the suppression of spin 1 diquarks compared with spin 0 ones (excluding the factor 3 coming from spin counting).
       cl_parj5=0.5
       cl_parj6=0.5
       cl_parj7=0.5
 
-
       cl_parj11=0.7          ! default PARJ(11) fraction of spin 1 light mesons (rho)
-      cl_parj12=0.4          ! default PARJ(12) fraction of spin 1 (affects K*s)
+      cl_parj12=0.4          ! default PARJ(12) fraction of spin 1 strange mesons (affects K*s)
       cl_parj14=0.0          ! default PARJ(14) : (D = 0.) is the probability that a spin = 0 meson is produced with an orbital angular momentum 1, for a total spin = 1.
       cl_parj15=0.0          ! defaultPARJ(15) : (D = 0.) is the probability that a spin = 1 meson is produced with an orbital angular momentum 1, for a total spin = 0.
+c going to parj15=0.9 reduces the overall dihadron counts by x2!
+c
       cl_parj16=0.0          ! defaultPARJ(16) : (D = 0.) is the probability that a spin = 1 meson is produced with an orbital angular momentum 1, for a total spin = 1.
-      cl_parj17=0.0          ! defaultPARJ(17) : (D = 0.) is the probability that a spin = 1 meson i      cl_parj21=0.4          ! default PARJ(21) for the width of P_T distribution  default in JETSET 0.36
+      cl_parj17=0.0          ! defaultPARJ(17) : (D = 0.) is the probability that a spin = 1 meson is produced with an orbital angular momentum 1, for a total spin = 2.
+c
+      cl_parj21=0.5          ! default PARJ(21) for the width of P_T distribution  default in JETSET 0.36
       cl_parj23=0.01 
       cl_parj24=2.
 
       cl_parj33=0.3          ! default PARJ(33) 0.8 define the remaining energy below which the fragmentation of a parton system is stopped and two final hadrons formed.
 
 c PARJ(41), PARJ(42) :  (D=0.3, 0.58 GeV$^{-2}$) give the $a$ and $b$ parameters of the symmetric Lund fragmentation function for MSTJ(11)=1, 4 and 5 (and MSTJ(11)=3 for ordinary hadrons).
-      cl_parj41=1.2        ! default
-      cl_parj42=0.58         ! default
+      cl_parj41=1.2         ! default parameter a in (1-z)^a large z-suppression in FF
+      cl_parj42=0.58         ! default parameter b in exp(-bm_\perp^2/z) in FF
 c      cl_parj41=1.13         ! HERMES 
 c      cl_parj42=0.37         ! HERMES 
 
       cl_mstu=1              ! default mstu(16)
       cl_zpos=0.0            ! z-position
-      cl_zwidth=0            ! z-width ( zpos+/-zwidth)
-      cl_rast=0.2            ! raster diameter in cm
+      cl_zwidth=0            ! z-width ( zpos+/-zwidth/2)
+      cl_rast=0.02            ! raster diameter in cm
       cl_trad=20             ! target radius
       cl_pol=0.0               ! unpolarized target
       cl_beam_energy=10.6   ! def eg1-2000 (e16-5.754,e1f-5.498)
@@ -295,6 +297,7 @@ c
 c
       cl_zmin=0.3           ! def z-min
 c
+      cl_decay=.FALSE.      ! use default decay channels
       cl_radgen=.FALSE.
       cl_radtab=.FALSE.
       cl_verblev=0
@@ -430,6 +433,8 @@ c
            ntOK=.FALSE.
         elseif(cnumber.eq.'--norand') then
           cl_rand=0
+        elseif(cnumber.eq.'--decay') then
+           cl_decay=.TRUE.
         elseif(cnumber.eq.'--radgen') then
            cl_radgen=.TRUE.
         elseif(cnumber.eq.'--radtab') then
@@ -480,7 +485,6 @@ c
            i=i+1
            CALL GETARG(i,cnumber)
            cl_parj11=valnum(cnumber)
-
         elseif(cnumber.eq.'--parj12'.and.i.lt.numopts) then
            i=i+1
            CALL GETARG(i,cnumber)
@@ -571,8 +575,8 @@ c23456789012345678901234567890123456789012345678901234567890123456789012
         print *,'  --w W2min W2max        4.0  50     W^2 min max GeV^2'
         print *,'  --z                 0.3       z=E_pi/nu min value '
         print *,'  --zpos z-position      0    target z position in cm '
-        print *,'  --zwidth z-width 0    width in z cm (zpos+/-zwidth) '
-        print *,'  --raster diameter 12   raster diameter in cm  '
+        print *,'  --zwidth z-width 0  width in z cm (zpos+/-zwidth/2)'
+        print *,'  --raster diameter 0.02   raster diameter in cm  '
         print *,'  --nont               do not write out the ntuple '
         print *,'  --radgen                   include radgen'
         print *,'     --radtab         generate radgen table for SIDIS'
@@ -588,7 +592,7 @@ c23456789012345678901234567890123456789012345678901234567890123456789012
         print *,'     --norand             keep the old random number'
         print *,'     --mstu                     set mstu(16)=2'
         print *,'     --parj11        0.7        set PARJ(11) rhos'
-        print *,'     --parj12        0.4        set PARJ(12)'
+        print *,'     --parj12        0.5        set PARJ(12) k*s'
         print *,'     --parj14        0.0        set PARJ(15) S0L1J1'
         print *,'     --parj15        0.0        set PARJ(16) S1L1J0'
         print *,'     --parj16        0.0        set PARJ(17) S1L1J1'
@@ -619,8 +623,8 @@ c
         print *,'NEVENTS:             ',cl_triggers    
         print *,'nmax-events       :   ',cl_nmax
         print *,'BEAM ENERGY:         ',cl_beam_energy  
-        print *,'Eprime   min/max(GeV):         ',cl_emin,cl_emax  
-        print *,'Eprime tmin/tmax(GeV):         ',cl_tmin,cl_tmax  
+        print *,'Eprime   min/max(GeV):    ',cl_emin,cl_emax  
+        print *,'Eprime tmin/tmax(GeV):    ',cl_tmin,cl_tmax  
         print *,'TARGET:              ', cl_target 
         print *,'TARGET z-position:   ', cl_zpos 
         print *,'TARGET  width :   ', cl_zwidth
@@ -824,6 +828,11 @@ C..  IF(PARI(LST(23)).EQ.0.0) PARI(LST(23))=FMAXFH
 
 C.. Call of the {\sc Pepsi}/{\sc Lepto} initialization routine 
 C..       CALL POLLINIT(0,11,PLZ,PPZ,1)
+        if(cl_decay) then  ! use the updated decay file
+         OPEN (unit=77,file='lund_upd.dat',status='UNKNOWN')
+         call luupda(2,77)
+         close(77)
+        endif
           CALL LINIT(0,11,PLZ,PPZ,1)
 c
 c  init radgen

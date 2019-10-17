@@ -8,7 +8,8 @@
      + ,game,gamt,gamf,gam2t,gam2e,gam2f,neue,neut,neuf,pim,pipx,pipy
      + ,pipz,pimx,pimy,pimz,prox,proy,proz
       INTEGER npi0,npip,npim,npro,ngam,nneu
-      COMMON /HADREC/ npi0,npip,npim,npro,ngam,nneu,pi0e,pi0t,pi0f,pipe
+      COMMON /HADREC/ npi0,npip,npim,npro,ngam,nneu
+     + ,pi0e,pi0t,pi0f,pipe
      + ,pipt,pipf,pime,pimt,pimf,proe,prot,prof,game,gamt,gamf,gam2t
      + ,gam2e,gam2f,neue,neut,neuf,pim,pipx,pipy,pipz,pimx,pimy,pimz
      + ,prox,proy,proz
@@ -21,8 +22,9 @@
       REAL gpi0e,gpi0t,gpi0f,gpipe,gpipt,gpipf,gpime,gpimt,gpimf,gproe
      + ,gprot,gprof,ggame,ggamt,ggamf,ggam2t,ggam2e,ggam2f,gneue,gneut
      + ,gneuf,gpipx,gpipy,gpipz,gpimx,gpimy,gpimz,gprox,gproy,gproz
-      INTEGER gnpi0,gnpip,gnpim,gnpro,gngam,gnneu
-      COMMON /HADGEN/ gnpi0,gnpip,gnpim,gnpro,gngam,gnneu,gpi0e,gpi0t
+      INTEGER gnpi0,gnpip,gnpim,gnpro,gngam,gnneu,gnmuo
+      COMMON /HADGEN/ gnpi0,gnpip,gnpim,gnpro,gngam,gnneu,gnmuo
+     + ,gpi0e,gpi0t
      + ,gpi0f,gpipe,gpipt,gpipf,gpime,gpimt,gpimf,gproe,gprot,gprof
      + ,ggame,ggamt,ggamf,ggam2t,ggam2e,ggam2f,gneue,gneut,gneuf,gpipx
      + ,gpipy,gpipz,gpimx,gpimy,gpimz,gprox,gproy,gproz
