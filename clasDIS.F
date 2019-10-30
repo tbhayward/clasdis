@@ -938,6 +938,7 @@ C.. Read in the current status of the random number generator
            irannom=10000*now(3)+100*now(2)+now(1)
         print *,'Rndm numb. for this set->',irannom,now(1),now(2),now(3)
            DO 100 iran=1,irannom
+           RND=rlu(0)
  100       RND=rand()
 
        ENDIF
