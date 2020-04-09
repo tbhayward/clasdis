@@ -3,7 +3,7 @@ OBJ=   jetset.o pepsi423.o lepto.o leptoak.o lpriktak.o lflav.o polleptox.o akdn
 
 # -lstdc++ for Gagik's stuff
 #
-FOR   =  -lstdc++ -lnsl -lcrypt -ldl -lgfortran
+FOR   =  -lstdc++  -lgfortran
 CERNLIBS =  -L/apps/cernlib/x86_64_rhel6_4.7.2/2005/lib -lmathlib  -lpacklib
   
 clasdis : $(OBJ)
