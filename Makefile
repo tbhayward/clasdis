@@ -7,9 +7,9 @@ FOR   =  -lstdc++  -lgfortran
 CERNLIBS =  -L/apps/cernlib/x86_64_rhel6_4.7.2/2005/lib -lmathlib  -lpacklib
   
 clasdis : $(OBJ)
-	 gfortran -fno-automatic -finit-local-zero -ffixed-line-length-none -fno-second-underscore  -o	clasdis  $(OBJ)  $(FOR) 
+	 gfortran -std=legacy -fno-automatic -finit-local-zero -ffixed-line-length-none -fno-second-underscore  -o	clasdis  $(OBJ)  $(FOR) 
 $(OBJ) : %.o: %.F
-	gfortran   -c $< -o $@  
+	gfortran -std=legacy   -c $< -o $@  
 
 clean:
 	rm -f clasdis   $(OBJ)
