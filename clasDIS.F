@@ -13,6 +13,7 @@ C*****************************************************************
 c disinC.. {\bf LFN} Number of the status files for random numbers 
       INTEGER       LFN,I,NEVENT
 c
+      call RNDMSEED()
       call CL_OPTIONS          ! command line processing
 
       print *,'now call INIT_PAW'
@@ -2222,4 +2223,21 @@ c
        return
        end
 
+c
+       subroutine RNDMSEED()
+       implicit none
+       integer*4 now(3),ifilenum
+       integer iran,irannom
+       real rand,rnd
+c
+c
+          call itime(now)     ! now(1)=hour, (2)=minute, (3)=second
+           CALL SRAND(now(3))
+           irannom=10*now(3)
+          print *,'Rndm numb->',irannom,now(1),now(2),now(3),rand()
+           DO 100 iran=1,irannom
+ 100       RND=rand()
+c
+	   return
+	   end
 
