@@ -1,4 +1,4 @@
-# clasdi (no cernlib version)
+# clasdis (no cernlib version)
 clas SIDIS MC based on `PEPSI LUND MC`
 
 To install
