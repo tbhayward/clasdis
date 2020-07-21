@@ -244,8 +244,8 @@ c                            ! 147 grsv2000 hep-ph/0011215 NLO,  173 -CTEQ6L (fr
       cl_her=.FALSE.         ! default Jetset, .true. hermes settings.
       cl_parl3=0.64          ! default PARL(3) <k_T> default in LEPTO =0.44
 
-      cl_parj2=0.3          ! default PARJ(2) 0.3, HERMES 0.15, suppress ss-bar
-      cl_parj3=0.4          ! default PARJ(3) 0.4, HERMES 0.25, the extra suppression of strange diquark production compared with the normal suppression of strange quarks. 
+      cl_parj2=0.16         ! default PARJ(2) 0.3, HERMES 0.15, suppress ss-bar
+      cl_parj3=0.25          ! default PARJ(3) 0.4, HERMES 0.25, the extra suppression of strange diquark production compared with the normal suppression of strange quarks. 
 c      cl_parj2=0.1          ! harut
 c      cl_parj3=0.2          ! harut
 
@@ -612,7 +612,7 @@ c23456789012345678901234567890123456789012345678901234567890123456789012
         print *,'     --datf       .TRUE.      write the output file'
         print *,'     --nmax   value     0  maximum events in a file'
         print *,'     --single   value   .FALSE. /true gen fixed tracks'
-        print *,'     --docker  .FALSE. gen a single file sidis.dat'
+        print *,'     --docker  .FALSE. gen a single file clasdis.dat'
         return
         end
 c
@@ -1132,7 +1132,7 @@ c
           if (lFirst) then   ! open the file
 c
            if(cl_docker) then
-             write(fname,'(A)') 'sidis.dat'
+             write(fname,'(A)') 'clasdis.dat'
              cl_nmax=cl_triggers+100
            else
              call get_datfilename()
