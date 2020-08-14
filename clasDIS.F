@@ -244,10 +244,10 @@ c                            ! 147 grsv2000 hep-ph/0011215 NLO,  173 -CTEQ6L (fr
       cl_her=.FALSE.         ! default Jetset, .true. hermes settings.
       cl_parl3=0.64          ! default PARL(3) <k_T> default in LEPTO =0.44
 
-      cl_parj2=0.16         ! default PARJ(2) 0.3, HERMES 0.15, suppress ss-bar
-      cl_parj3=0.25          ! default PARJ(3) 0.4, HERMES 0.25, the extra suppression of strange diquark production compared with the normal suppression of strange quarks. 
+      cl_parj2=0.3          ! default PARJ(2) 0.3, HERMES 0.15, suppress ss-bar
+      cl_parj3=0.4          ! default PARJ(3) 0.4, HERMES 0.25, the extra suppression of strange diquark production compared with the normal suppression of strange quarks. 
 c      cl_parj2=0.1          ! harut
-c      cl_parj3=0.2          ! harut
+c      cl_parj3=0.2          ! 
 
 
       cl_parj4=0.05 !(1/3)P(ud1)/P(ud0), the suppression of spin 1 diquarks compared with spin 0 ones (excluding the factor 3 coming from spin counting).
@@ -256,7 +256,7 @@ c      cl_parj3=0.2          ! harut
       cl_parj7=0.5
 
       cl_parj11=0.7          ! default PARJ(11) fraction of spin 1 light mesons (rho)
-      cl_parj12=0.4          ! default PARJ(12) fraction of spin 1 strange mesons (affects K*s)
+      cl_parj12=0.75          ! default PARJ(12) fraction of spin 1 strange mesons (affects K*s)
       cl_parj14=0.0          ! default PARJ(14) : (D = 0.) is the probability that a spin = 0 meson is produced with an orbital angular momentum 1, for a total spin = 1.
       cl_parj15=0.0          ! defaultPARJ(15) : (D = 0.) is the probability that a spin = 1 meson is produced with an orbital angular momentum 1, for a total spin = 0.
 c going to parj15=0.9 reduces the overall dihadron counts by x2!
