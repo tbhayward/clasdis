@@ -2242,13 +2242,11 @@ c
 c
           if(cl_seed.eq.0) then
           call itime(now)     ! now(1)=hour, (2)=minute, (3)=second
-	  now(3)=now(3)+now(1)*3600+now(2)*60
+	  irannom=now(3)+now(1)*3600+now(2)*60
 	  else 
-	  now(3)=cl_seed
+	  irannom=cl_seed
 	  endif
-           CALL SRAND(now(3))
-c           CALL SRAND(now(3))
-c           irannom=now(3)
+           CALL SRAND(irannom)
 c          print *,'Rndm numb->',irannom,now(1),now(2),now(3),rand()
 c           DO 100 iran=1,irannom
 c 100       RND=rand()
