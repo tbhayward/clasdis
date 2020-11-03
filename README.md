@@ -21,6 +21,7 @@ To get more command line options
     option  value      default  comment
    --v    verbos_level    0     additional printout
    --trig nevents         10     number of triggers
+   --seed seed_number     0     will take random number from time
    --beam beam_energy     10.6   e- momentum in GeV
    --e e-min e-max  min[750] max[0.95*e] Eprime in GeV
    --t tmin tmax  5.0    theta min/max for \theta(deg)
