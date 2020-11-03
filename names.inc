@@ -5,7 +5,7 @@
       REAL  rdtiv,tiv,tetacm,alf05
       integer cl_verblev,cl_rand,cl_nprint,cl_mstu
       integer cl_pid,cl_triggers,cl_mstp,cl_vmstp,cl_nmax
-      integer  cl_smear
+      integer  cl_smear,cl_seed
       integer  cl_ht,cl_outform,cl_printid,cl_lst15,cl_lst37,cl_lst8
       real  cl_sma,cl_smb,cl_smc,cl_smd,cl_parl3,cl_fld
       real  cl_parj12,cl_parj2,cl_parj3,cl_parj21,cl_parj23,cl_parj24
@@ -31,7 +31,7 @@
      6,cl_parj7,cl_parj12,cl_parj21,cl_parj23,cl_parj24,cl_parj33
      6,cl_parj41,cl_parj42,cl_parj11
      6,cl_parj14,cl_parj15,cl_parj16,cl_parj17
-      common /claspepsi6/ cl_smear,cl_sma,cl_smb,cl_smc,cl_smd
+      common /claspepsi6/ cl_smear,cl_sma,cl_smb,cl_smc,cl_smd,cl_seed
       common /claspepsi6/ cl_xmin,cl_xmax,cl_qmin,cl_qmax,
      6cl_wmin,cl_wmax
       common /clasdisrad/ cl_radgen,cl_radtab

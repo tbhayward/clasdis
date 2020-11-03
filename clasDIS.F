@@ -13,7 +13,6 @@ C*****************************************************************
 c disinC.. {\bf LFN} Number of the status files for random numbers 
       INTEGER       LFN,I,NEVENT
 c
-      call RNDMSEED()
       call CL_OPTIONS          ! command line processing
 
       print *,'now call INIT_PAW'
@@ -304,6 +303,7 @@ c
       cl_verblev=0
       cl_nprint=1000         ! print every cl_nprint event
       cl_rand=1              ! update the random number in end
+      cl_seed=0              ! update the random number in end
       cl_triggers = 10  
       cl_nmax = 20000         ! max number of events in the file
       cl_ht=0
@@ -333,6 +333,10 @@ c
           i=i+1
           CALL GETARG(i,cnumber)
           cl_triggers=valnum(cnumber)
+        elseif(cnumber.eq.'--seed'.and.i.lt.numopts) then
+          i=i+1
+          CALL GETARG(i,cnumber)
+          cl_seed=valnum(cnumber)
         elseif(cnumber.eq.'--nmax'.and.i.lt.numopts) then
           i=i+1
           CALL GETARG(i,cnumber)
@@ -560,6 +564,10 @@ c
          cl_emax=0.95*cl_beam_energy            ! put some limit
         endif
         call printvalues
+c
+c randomize
+c
+        call RNDMSEED()
         return 
         end
         subroutine printusage
@@ -2226,17 +2234,24 @@ c
 c
        subroutine RNDMSEED()
        implicit none
+#include "names.inc"
        integer*4 now(3),ifilenum
        integer iran,irannom
        real rand,rnd
 c
 c
+          if(cl_seed.eq.0) then
           call itime(now)     ! now(1)=hour, (2)=minute, (3)=second
+	  now(3)=now(3)+now(1)*3600+now(2)*60
+	  else 
+	  now(3)=cl_seed
+	  endif
            CALL SRAND(now(3))
-           irannom=10*now(3)
-          print *,'Rndm numb->',irannom,now(1),now(2),now(3),rand()
-           DO 100 iran=1,irannom
- 100       RND=rand()
+c           CALL SRAND(now(3))
+c           irannom=now(3)
+c          print *,'Rndm numb->',irannom,now(1),now(2),now(3),rand()
+c           DO 100 iran=1,irannom
+c 100       RND=rand()
 c
 	   return
 	   end
