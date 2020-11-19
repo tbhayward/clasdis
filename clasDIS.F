@@ -1515,13 +1515,14 @@ c        print *,'q2',gq2,vdotm(qiu4,qiu4,4)
         CASE (8) ! pi+
          gnpip=gnpip+1
          if(gnpip.eq.1 .or. gpipe.lt.pener) then  ! get the highest energy in NT
-         if(cl_gagid.ne.0.and.
-     6accep11(211,pener,theta,phi,cl_fld).eq.1) then
+         if(cl_gagid.ne.0) then
+          if(accep11(211,pener,theta,phi,cl_fld).eq.1) then
           jparent=j
            if(accep11(11,gelee,gelet,gelef,cl_fld).eq.0) jparent=0 ! make sure electron in the acceptance           
          else
           jparent=0
          endif
+	 endif
           gpipe=pener
           gpipt=theta
           gpipf=phi
