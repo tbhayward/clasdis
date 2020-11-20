@@ -33,7 +33,7 @@ C.. Constats and Parameter
 C.. Number of the  RNDMSTATUS FILE
       LFN = 10
 C.. Read in of the random number status file 
-      CALL RNDMSTART(LFN)
+C      CALL RNDMSTART(LFN)
 
 C.. Initialization of the lepto program 
       CALL DISINIT
