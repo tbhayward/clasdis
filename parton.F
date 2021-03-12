@@ -3795,7 +3795,7 @@ C************************************************************************
       CHARACTER*80 LINE
       COMMON / INTINIP / IINIP
 c
-      character*100  pdffile,clasdispdf
+      character*500  pdffile,clasdispdf
 c
       SAVE XUVF, XDVF, XDEF, XUDF, XSF, XGF, NA, ARRF
 
@@ -3840,7 +3840,9 @@ c
 *    (COMMENT: FIRST NUMBER IN THE FIRST LINE OF THE GRID)
       call getenv('CLASDIS_PDF',clasdispdf)
       IF (ISET .EQ. 1) THEN
+      write(6,'(A,A)') trim(clasdispdf),'/grv98lo.grid'
       write(pdffile,'(A,A)') trim(clasdispdf),'/grv98lo.grid'
+      print *,'pdffile2',iset,pdffile,clasdispdf
       ELSE IF (ISET .EQ. 2) THEN
       write(pdffile,'(A,A)') trim(clasdispdf),'/grv98nlm.grid'
       ELSE IF (ISET .EQ. 3) THEN
@@ -3852,6 +3854,7 @@ c
       END IF
         WRITE(6,*) 'Reading the pdf data from ',pdffile
         OPEN (11,FILE=pdffile,STATUS='old')   ! 7.332E-05
+        WRITE(6,*) 'Done reading the pdf data from ',pdffile
       IINIP = 1
       READ(11,89) LINE
   89  FORMAT(A80)
@@ -4103,7 +4106,7 @@ c
      1          XSF(NX,NQ), XGF(NX,NQ), XG1P(NX,NQ), XG1N(NX,NQ),
      2          PARTON (NPART,NQ,NX-1), QS(NQ), XB(NX), XT(NARG), 
      3          NA(NARG), ARRF(NX+NQ) 
-      character*100  pdffile,clasdispdf
+      character*500  pdffile,clasdispdf
 c
       COMMON / INTINI / IINI
       SAVE XUF, XDF, XUBF, XDBF, XSF, XGF, XG1P, XG1N, NA, ARRF
