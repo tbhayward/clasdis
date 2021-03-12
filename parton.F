@@ -3795,7 +3795,7 @@ C************************************************************************
       CHARACTER*80 LINE
       COMMON / INTINIP / IINIP
 c
-      character*100  pdffile,clasdispdf
+      character*500  pdffile,clasdispdf
 c
       SAVE XUVF, XDVF, XDEF, XUDF, XSF, XGF, NA, ARRF
 
@@ -4103,7 +4103,7 @@ c
      1          XSF(NX,NQ), XGF(NX,NQ), XG1P(NX,NQ), XG1N(NX,NQ),
      2          PARTON (NPART,NQ,NX-1), QS(NQ), XB(NX), XT(NARG), 
      3          NA(NARG), ARRF(NX+NQ) 
-      character*100  pdffile,clasdispdf
+      character*500  pdffile,clasdispdf
 c
       COMMON / INTINI / IINI
       SAVE XUF, XDF, XUBF, XDBF, XSF, XGF, XG1P, XG1N, NA, ARRF
