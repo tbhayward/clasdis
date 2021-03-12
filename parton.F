@@ -480,7 +480,7 @@ C     THIS IS THE NEW  "G" FIT -- Feb 1995 -- standard Q^2 range
       DATA XMIN,XMAX,QSQMIN,QSQMAX/1.D-5,1.D0,5.D0,1310720.D0/
       DATA N0/2,5,5,9,0,0,9,9/
       DATA INIT/0/
-      character*100  pdffile,clasdispdf
+      character*500  pdffile,clasdispdf
  
  
       xsave=x
