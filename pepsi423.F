@@ -467,7 +467,7 @@ C...Numerical integration to obtain total cross-section.
       REAL ULMASS,ULANGL,UMIN,UMAX,S
       INTEGER LQCD,LTM,IPMAX,IP,IW,IX
       REAL TI1,TI2
-      character*100  clasdispdf
+      character*500  clasdispdf
 c
       INTEGER LSTW(40)
       REAL PARLW(30)
@@ -10275,7 +10275,7 @@ C...  Numerical integration to obtain total cross-section.
       REAL ULMASS,ULANGL,UMIN,UMAX
       INTEGER LQCD,LTM,IPMAX,IP,IW,IX
       REAL TI1,TI2
-      character*100  clasdispdf
+      character*500  clasdispdf
 c
       INTEGER LSTW(40)
       REAL PARLW(30)

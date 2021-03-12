@@ -14,7 +14,7 @@ C...Numerical integration to obtain total cross-section.
      &Q2MIN,Q2MAX,W2MIN,W2MAX,ILEP,INU,IG,IZ
       REAL PSAVE,XMIN,XMAX,YMIN,YMAX,Q2MIN,Q2MAX,W2MIN,W2MAX
       INTEGER KSAVE,ILEP,INU,IG,IZ
-      character*100  clasdispdf
+      character*500  clasdispdf
       SAVE /LINTRL/
 
 *
