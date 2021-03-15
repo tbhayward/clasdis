@@ -1,6 +1,6 @@
       character*10 cl_target
-      REAL cl_beam_energy,cl_zpos,cl_zwidth,cl_trad,cl_zmin,cl_rast
-      REAL  cl_emin,cl_emax,cl_tmin,cl_tmax
+      REAL cl_beam_energy,cl_xpos,cl_ypos,cl_zpos,cl_zwidth,cl_trad
+      REAL cl_zmin,cl_rast,cl_emin,cl_emax,cl_tmin,cl_tmax
       REAL  cl_xmin,cl_xmax,cl_qmin,cl_qmax,cl_wmin,cl_wmax
       REAL  rdtiv,tiv,tetacm,alf05
       integer cl_verblev,cl_rand,cl_nprint,cl_mstu
@@ -24,8 +24,8 @@
       common /claspepsi2/ cl_target
       common /claspepsi3/ cl_triggers,cl_pid,cl_beam_energy,cl_pol
      6,cl_nmax
-      common /claspepsi4/ cl_zpos,cl_zwidth,cl_rast,cl_fld
-      common /claspepsi44/ cl_trad,cl_zmin,cl_parl3
+      common /claspepsi4/ cl_xpos,cl_ypos,cl_zpos,cl_zwidth,cl_rast
+      common /claspepsi44/ cl_trad,cl_zmin,cl_parl3,cl_fld
       common /claspepsi5/ cl_emin,cl_emax,cl_tmin,cl_tmax
       common /claspepsi55/ cl_parj2,cl_parj3,cl_parj4,cl_parj5,cl_parj6
      6,cl_parj7,cl_parj12,cl_parj21,cl_parj23,cl_parj24,cl_parj33

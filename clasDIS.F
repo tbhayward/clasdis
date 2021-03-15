@@ -277,6 +277,8 @@ c      cl_parj42=0.37         ! HERMES
 
       cl_mstu=1              ! default mstu(16)
       cl_zpos=0.0            ! z-position
+      cl_xpos=0.0            ! x-position
+      cl_ypos=0.0            ! y-position
       cl_zwidth=0            ! z-width ( zpos+/-zwidth/2)
       cl_rast=0.02            ! raster diameter in cm
       cl_trad=20             ! target radius
@@ -290,7 +292,7 @@ c      cl_parj42=0.37         ! HERMES
 c
       cl_xmin=0.05
       cl_xmax=0.95
-      cl_qmin=0.85
+      cl_qmin=0.95
       cl_qmax=20.0
       cl_wmin=4.0
       cl_wmax=400.0
@@ -391,7 +393,14 @@ c
            i=i+1
            CALL GETARG(i,cnumber)
            cl_emax=valnum(cnumber)
-        elseif(cnumber.eq.'--x'.and.i.lt.numopts) then
+         elseif(cnumber.eq.'--xypos'.and.i.lt.numopts) then
+           i=i+1
+           CALL GETARG(i,cnumber)
+           cl_xpos=valnum(cnumber)
+           i=i+1
+           CALL GETARG(i,cnumber)
+           cl_ypos=valnum(cnumber)
+       elseif(cnumber.eq.'--x'.and.i.lt.numopts) then
            i=i+1
            CALL GETARG(i,cnumber)
            cl_xmin=valnum(cnumber)
@@ -584,6 +593,7 @@ c23456789012345678901234567890123456789012345678901234567890123456789012
         print *,'  --w W2min W2max        4.0  50     W^2 min max GeV^2'
         print *,'  --z                 0.3       z=E_pi/nu min value '
         print *,'  --zpos z-position      0    target z position in cm '
+        print *,'  --xypos x-pos y-pos    0/0 beam x/y position in cm '
         print *,'  --zwidth z-width 0  width in z cm (zpos+/-zwidth/2)'
         print *,'  --raster diameter 0.02   raster diameter in cm  '
         print *,'  --nont               do not write out the ntuple '
@@ -637,6 +647,7 @@ c
         print *,'TARGET:              ', cl_target 
         print *,'TARGET z-position:   ', cl_zpos 
         print *,'TARGET  width :   ', cl_zwidth
+        print *,'BEAM x/y-position in cm:   ', cl_xpos,cl_ypos 
         print *,'raster diameter  :   ', cl_rast
         print *,'TARGET radius :      ', cl_trad
         print *,'polarization     :   ', cl_pol 
@@ -1446,10 +1457,13 @@ c
         phi=Azimuthalphi(px,py) !atan2(cy,cx)
 c        print *,PolarTheta(px,py,pz),theta,Azimuthalphi(px,py),phi,gnele
 c
+c
  9    xrast=(cl_rast*(random_num()-0.5))
       yrast=(cl_rast*(random_num()-0.5))
       if(sqrt(xrast**2+yrast**2).gt.cl_rast/2.0) goto 9
-
+      xrast=xrast+cl_xpos
+      yrast=yrast+cl_ypos
+      
        SELECT CASE (part_id)  
         CASE (3) ! electron
          gnele=gnele+1
