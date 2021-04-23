@@ -2299,6 +2299,10 @@ c
        subroutine RNDMSEED()
        implicit none
 #include "names.inc"
+      integer MRLU(6)
+      real RRLU(100) 
+      COMMON/LUDATR/MRLU,RRLU 
+      SAVE /LUDATR/ 
        integer*4 now(3),ifilenum
        integer iran,irannom
        real rand,rnd
@@ -2311,7 +2315,8 @@ c
 	  irannom=cl_seed
 	  endif
            CALL SRAND(irannom) 
-          print *,'RandomSeedActuallyUsed:',irannom,now
+	  MRLU(1)=rand(0)
+          print *,'RandomSeedActuallyUsed:',irannom,cl_seed,MRLU(1),now
 c
 	   return
 	   end
