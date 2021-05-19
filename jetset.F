@@ -6165,7 +6165,7 @@ C...Purpose: to reconstruct an angle from given x and y coordinates.
       END 
  
 C***************************************
-      FUNCTION RLU(IDUMMY)
+      FUNCTION RLU_HARUT(IDUMMY)
   100 RLU=RAND(IDUMMY)
       IF(RLU.LE.0..OR.RLU.GE.1.) GOTO 100 
       RETURN
@@ -6173,7 +6173,7 @@ C***************************************
 
 C********************************************************************* 
  
-      FUNCTION RLU_JETSET(IDUMMY) 
+      FUNCTION RLU(IDUMMY) 
 C...Purpose: to generate random numbers uniformly distributed between 
 C...0 and 1, excluding the endpoints. 
       COMMON/LUDATR/MRLU(6),RRLU(100) 
@@ -6238,7 +6238,7 @@ C...Update counters. Random number to output.
         MRLU3=0 
       ENDIF 
       RLU=RUNI 
-      print *,'RLUUUUU',RUNI,'**',MRLU
+c      print *,'RLUUUUU',RUNI,'**',MRLU
       RETURN 
       END 
  

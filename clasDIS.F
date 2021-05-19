@@ -881,7 +881,7 @@ C      random number generator
 C**********************************************************************
          real function random_num()
          implicit none
-         random_num=RAND(0)
+         call random_number(random_num)
          return
          end
 
@@ -959,7 +959,7 @@ C.. Read in the current status of the random number generator
         print *,'Rndm numb. for this set->',irannom,now(1),now(2),now(3)
            DO 100 iran=1,irannom
            RND=rlu(0)
- 100       RND=rand()
+ 100       call random_number(RND)
 
        ENDIF
 
@@ -1049,8 +1049,9 @@ C***********************************************************************
       integer Nthet_S,Nmom_S
       PARAMETER (Nthet_S=32)
       PARAMETER (Nmom_S=24)
-      REAL theta_s(Nthet_S),moment_s(Nmom_s)
+      REAL theta_s(Nthet_S),moment_s(Nmom_s),rnd
       INTEGER isec
+      call random_number(rnd)
       DATA moment_s/
      +    0.2,   0.4,    0.6,    0.8,   1.0,    1.4,   1.8,   2.2,
      +    2.6,   3.0,    3.5,    4.0,   4.5,    5.0,   5.5,   6.0,
@@ -1060,7 +1061,7 @@ C***********************************************************************
      +    9.0,   10.0,  11.0,    12.0, 13.0,   14.0,  15.0,   16.0,
      +    18.0,  20.0,  22.0,    25.0, 30.0,   35.0,  40.0,   45.0,
      +    50.0,  55.0,  60.0,    65.0, 70.0,   75.0,  80.0,  90.0/
-       isec=rand(0)*6+1
+      isec=rnd*6+1
       return
       end
 
@@ -2169,7 +2170,7 @@ c
       END
 c
       REAL FUNCTION ZBQLU01(DUMMY)
-      ZBQLU01=rand() !rndm(-1)
+      call random_number(ZBQLU01)
       return
       end 
 ******************************************************************
@@ -2296,28 +2297,40 @@ c
        end
 
 c
-       subroutine RNDMSEED()
-       implicit none
+      subroutine RNDMSEED()
+      implicit none
 #include "names.inc"
       integer MRLU(6)
       real RRLU(100) 
       COMMON/LUDATR/MRLU,RRLU 
       SAVE /LUDATR/ 
-       integer*4 now(3),ifilenum
-       integer iran,irannom
-       real rand,rnd
-c
-c
-          if(cl_seed.eq.0) then
-          call itime(now)     ! now(1)=hour, (2)=minute, (3)=second
-	  irannom=now(3)+now(1)*3600+now(2)*60
-	  else 
-	  irannom=cl_seed
-	  endif
-           CALL SRAND(irannom) 
-	  MRLU(1)=rand(0)
-          print *,'RandomSeedActuallyUsed:',irannom,cl_seed,MRLU(1),now
-c
-	   return
-	   end
+      integer*4 now(3),ifilenum
+      integer irnd,irannom,MAXMRLUSEED
+      real rand,rnd
+      integer :: n
+      integer,allocatable :: seeds(:)
+c     
+c     
+      MAXMRLUSEED=900000000
+      if(cl_seed.eq.0) then
+         call itime(now)        ! now(1)=hour, (2)=minute, (3)=second
+         irannom=now(3)+now(1)*3600+now(2)*60
+      else 
+         irannom=cl_seed
+      endif
 
+      call random_seed(size=n) ! get size of the seed used by the OS
+      allocate(seeds(n))
+      seeds = irannom 
+      call random_seed(put=seeds)
+      deallocate(seeds)
+      CALL SRAND(irannom) 
+      call random_number(rnd)  ! random number in [0,1]
+
+      irnd = floor(rnd*MAXMRLUSEED) 
+      MRLU(1)=irnd          
+      print *,'RandomSeedActuallyUsed:',irannom,cl_seed,MRLU(1),now
+c     
+      return
+      end
+      
