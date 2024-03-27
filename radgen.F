@@ -904,9 +904,14 @@ c
       do 10 i=1,3
        print *, ' '  ! Print an empty line for spacing before the values
 	 a2=2.*am2(i)
+       print *, 'a2:', a2
 	 sqlmi=dsqrt(y*y+2.*a2*y)
+       print *, 'sqlmi:', sqlmi
 	 allmi=dlog((sqlmi+y)/(sqlmi-y))/sqlmi
+       print *, 'allmi:', allmi
   10  suml=suml+2.*(y+a2)*allmi/3.-10./9.+4.*a2*(1.-a2*allmi)/3./y
+      print *, 'suml after loop iteration:', suml
+      print *, ' '  ! Print an empty line for spacing after the values
 
       if(y .lt. 4d0)then
 	k=1
