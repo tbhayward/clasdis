@@ -903,6 +903,7 @@ c
       suml=0.
       do 10 i=1,3
        print *, ' '  ! Print an empty line for spacing before the values
+       print *, 'y:', y  ! Print y
 	 a2=2.*am2(i)
        print *, 'a2:', a2
 	 sqlmi=dsqrt(y*y+2.*a2*y)
