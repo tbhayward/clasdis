@@ -901,29 +901,65 @@ c
       data c/4.08041425d0,3.09624477d0,2.07463133d0,1d0,1d0/
 
       suml=0.
+C       do 10 i=1,3
+C 	 a2=2.*am2(i)
+C 	 sqlmi=dsqrt(y*y+2.*a2*y)
+C 	 allmi=dlog((sqlmi+y)/(sqlmi-y))/sqlmi
+C   10  suml=suml+2.*(y+a2)*allmi/3.-10./9.+4.*a2*(1.-a2*allmi)/3./y
+
+C       if(y .lt. 4d0)then
+C 	k=1
+C       elseif(y .lt. 16d0)then
+C 	k=2
+C       elseif(y .lt. 100d0)then
+C 	k=3
+C       elseif(y .lt. 8317.44d0)then
+C 	k=4
+C       elseif(y .ge. 8317.44d0)then
+C 	k=5
+C       else
+C         print *,'y is',y,k,suml
+C 	stop ' Y<0 in VACPOL'
+C       endif
+
+C       sumh = (a(k)+b(k)*log(1.+c(k)*y)) *2.*pi/alfa
+C       vacpol=suml+sumh
+
       do 10 i=1,3
-	 a2=2.*am2(i)
-	 sqlmi=dsqrt(y*y+2.*a2*y)
-	 allmi=dlog((sqlmi+y)/(sqlmi-y))/sqlmi
-  10  suml=suml+2.*(y+a2)*allmi/3.-10./9.+4.*a2*(1.-a2*allmi)/3./y
+           print *, ' '  ! Print an empty line for spacing before the values
+           a2=2.*am2(i)
+           print *, 'a2:', a2
+           sqlmi=dsqrt(y*y+2.*a2*y)
+           print *, 'sqlmi:', sqlmi
+           allmi=dlog((sqlmi+y)/(sqlmi-y))/sqlmi
+           print *, 'allmi:', allmi
+      10   suml=suml+2.*(y+a2)*allmi/3.-10./9.+4.*a2*(1.-a2*allmi)/3./y
+           print *, 'suml after loop iteration:', suml
+           print *, ' '  ! Print an empty line for spacing after the values
 
       if(y .lt. 4d0)then
-	k=1
+          k=1
       elseif(y .lt. 16d0)then
-	k=2
+          k=2
       elseif(y .lt. 100d0)then
-	k=3
+          k=3
       elseif(y .lt. 8317.44d0)then
-	k=4
+          k=4
       elseif(y .ge. 8317.44d0)then
-	k=5
+          k=5
       else
-        print *,'y is',y,k,suml
-	stop ' Y<0 in VACPOL'
+          print *,'y is',y,k,suml
+          stop ' Y<0 in VACPOL'
       endif
 
+      print *, ' '  ! Print an empty line before printing y and k
+      print *, 'y:', y, 'k:', k
       sumh = (a(k)+b(k)*log(1.+c(k)*y)) *2.*pi/alfa
       vacpol=suml+sumh
+      print *, 'sumh:', sumh
+      print *, 'vacpol:', vacpol
+      print *, ' '  ! Print an empty line after the final calculation
+
 
       end
 
