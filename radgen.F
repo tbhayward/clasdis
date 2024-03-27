@@ -38,7 +38,7 @@ c
 
 *     kill_elas_res =2, no rad corrections
 *     kill_elas_res =0, all rad corrections
-      kill_elas_res=0
+      kill_elas_res=-1
 
 *     initialise the rad. correction part !
 *     =2 : fint cernlib extrapolation routine
