@@ -1212,8 +1212,8 @@ c      print *,' isf=',isf,' irr=',irr,podinl
 c      write(*,*)' isf=',isf,' irr=',irr,podinl,sfm(isf)
     1 continue
    11 continue
-      print *, 'Y:', Y, ', R:', R, ', ta:', ta
-      podinl=podinl*(1.+alfa/pi*vacpol(Y+R*ta))
+      print *, 'Y:', y, ', r:', r, ', ta:', ta
+      podinl=podinl*(1.+alfa/pi*vacpol(y+r*ta))
 c      if(itmp.eq.1)then
 c	write(*,*)podinl,tm(1,1),amp,ap,ap2,aml2,aml
 c	itmp=0
@@ -2204,6 +2204,7 @@ c      calculate integrand
 c	call intsai(dtk,dtsai)
 c	dsum=dsum+dtsai
 	ta=(sx-sqly*cos(dtk))/ap2
+      print *, 'ta:', ta
        dsigma=an*alfa/pi*rv2(ta) * sin(dtk)*sqly/ap2
        dsum=dsum+dsigma
 c	write(9,*)dsigma,ta,dtk
