@@ -1212,8 +1212,13 @@ c      print *,' isf=',isf,' irr=',irr,podinl
 c      write(*,*)' isf=',isf,' irr=',irr,podinl,sfm(isf)
     1 continue
    11 continue
-      print *, 'Y:', y, ', r:', r, ', ta:', ta
-      podinl=podinl*(1.+alfa/pi*vacpol(y+r*ta))
+      print *, 'Y:', Y, ', R:', R, ', ta:', ta
+      if (R .ne. R .or. ta .ne. ta) then
+         podinl = podinl * (1. + alfa / pi * vacpol(Y))
+      else
+         podinl = podinl * (1. + alfa / pi * vacpol(Y + R * ta))
+      endif
+
 c      if(itmp.eq.1)then
 c	write(*,*)podinl,tm(1,1),amp,ap,ap2,aml2,aml
 c	itmp=0
