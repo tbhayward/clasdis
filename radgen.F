@@ -902,6 +902,7 @@ c
 
       suml=0.
       do 10 i=1,3
+       print *, ' '  ! Print an empty line for spacing before the values
 	 a2=2.*am2(i)
 	 sqlmi=dsqrt(y*y+2.*a2*y)
 	 allmi=dlog((sqlmi+y)/(sqlmi-y))/sqlmi
