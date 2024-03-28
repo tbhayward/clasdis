@@ -2209,7 +2209,6 @@ c      calculate integrand
 c	call intsai(dtk,dtsai)
 c	dsum=dsum+dtsai
 	ta=(sx-sqly*cos(dtk))/ap2
-      print *, 'ta:', ta
        dsigma=an*alfa/pi*rv2(ta) * sin(dtk)*sqly/ap2
        dsum=dsum+dsigma
 c	write(9,*)dsigma,ta,dtk
