@@ -1152,7 +1152,7 @@ c
           if (lFirst) then   ! open the file
 c
            if(cl_docker) then
-             write(fname,'(A)') 'clasdis.dat'
+             write(fname,'(A)') 'clasdis.txt'
              cl_nmax=cl_triggers+100
            else
              call get_datfilename()
@@ -1166,13 +1166,13 @@ c
              if (jc.eq.0) jc=len(datfilename)
 
            if(ifile.le.9) then
-             write(c8name,'(A,i1,A)') '000',ifile,'.dat'
+             write(c8name,'(A,i1,A)') '000',ifile,'.txt'
            else if(ifile.ge.10.and.ifile.le.99) then
-             write(c8name,'(A,i2,A)') '00',ifile,'.dat'
+             write(c8name,'(A,i2,A)') '00',ifile,'.txt'
            else if(ifile.ge.100.and.ifile.le.999) then
-             write(c8name,'(A,i3,A)') '0',ifile,'.dat'
+             write(c8name,'(A,i3,A)') '0',ifile,'.txt'
            else
-             write(c8name,'(i4,A)')  ifile,'.dat'
+             write(c8name,'(i4,A)')  ifile,'.txt'
 c stay with numbers below 9999 for now
            endif 
              write(fname,'(A,A)') datfilename(1:jc),c8name
