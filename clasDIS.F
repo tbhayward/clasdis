@@ -11,13 +11,14 @@ C*****************************************************************
 #include "names.inc"
 #include "claslepto.inc"
 c disinC.. {\bf LFN} Number of the status files for random numbers 
-      INTEGER       LFN,I,NEVENT
+        INTEGER       LFN,I,NEVENT
 c
       call CL_OPTIONS          ! command line processing
 
-      print *,'now call INIT_PAW'
+      print *,'now call INIT_PAW if initialized.'
 c
 #ifdef  hbook
+    print *,'calling INIT_PAW.'
       call INIT_PAW            ! command line processing
 c
 #endif
@@ -245,9 +246,6 @@ c                            ! 147 grsv2000 hep-ph/0011215 NLO,  173 -CTEQ6L (fr
 
       cl_parj2=0.3          ! default PARJ(2) 0.3, HERMES 0.15, suppress ss-bar
       cl_parj3=0.4          ! default PARJ(3) 0.4, HERMES 0.25, the extra suppression of strange diquark production compared with the normal suppression of strange quarks. 
-c      cl_parj2=0.1          ! harut
-c      cl_parj3=0.2          ! 
-
 
       cl_parj4=0.05 !(1/3)P(ud1)/P(ud0), the suppression of spin 1 diquarks compared with spin 0 ones (excluding the factor 3 coming from spin counting).
       cl_parj5=0.5
