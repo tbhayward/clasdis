@@ -25,7 +25,7 @@ c
 c     
 C..   number of events   
 c
-      print *,'after call INIT_PAW'
+      print *,'after potential call to INIT_PAW'
 
        NEVENT=cl_triggers
 
@@ -729,15 +729,15 @@ C.. $W^2$ min cut
        CUT(7)= cl_wmin
 C.. $W^2$ max cut   
        CUT(8)= cl_wmax
+C.. $\nu$ min cut
+       CUT(9)=0.1
+C.. $\nu$ max cut
+       CUT(10)= cl_beam_energy-cl_emin
 C.. lower limit scat. lep. energy
        CUT(11)=cl_emin !0.6 
        print *,'e_min,cut(11)',cl_emin,CUT(9),CUT(10),CUT(11),CUT(12)
 C..  upper limit scat. lep. energy
        CUT(12)=cl_emax !1.65
-C.. $\nu$ min cut
-       CUT(9)=0.1
-C.. $\nu$ max cut
-       CUT(10)= cl_beam_energy-cl_emin
 C.. lower limit scat lep. angle
        CUT(13)=cl_tmin !0.52-0.08          ! 29.75 degree+/-4
 C..  upper limit scat lep. angle

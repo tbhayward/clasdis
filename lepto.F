@@ -47,8 +47,6 @@ c...note: if error flag lst(21) is non-zero, no proper event generated.
 
 * if ariadne is used to simulate the parton shower evolution, the
 * ardat1 common block is neccessary for a proper interface.
-* if ariadne is used to simulate the parton shower evolution, the
-* ardat1 common block is neccessary for a proper interface.
       common /ardat1/ para(40),msta(40)
       real para
       integer msta
