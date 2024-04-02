@@ -38,6 +38,7 @@ C      CALL RNDMSTART(LFN)
 
 C.. Initialization of the lepto program 
       CALL DISINIT
+      print *,'YOOOOO WE PASSSED DISINIT ISNT THAT COOL'
       if(cl_verblev.gt.0) WRITE(*,*) 'NEVENT=',NEVENT
 
 C.. Event generation: 
