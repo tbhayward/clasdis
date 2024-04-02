@@ -59,7 +59,6 @@ c...note: if error flag lst(21) is non-zero, no proper event generated.
       double precision detot,dari29,dari30
       dimension spq(17)
       data nummis,nwarn/0,10/,dari29,dari30/2*0.d0/
-      print *,'HELLO WORLD OMG WORLD HI ITS ME IM SAYING HELLO'
       l17=0
     1 lst(21)=0
       do 10 i=1,10
