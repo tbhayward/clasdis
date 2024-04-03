@@ -841,7 +841,6 @@ C.. Simulation for a proton
           call printusage
           stop       
       endif
-      print *,'RIGHT HERE'
 C..
 C..  used in PEPSI
 C..  IF(PARI(LST(23)).EQ.0.0) PARI(LST(23))=FMAXFH
@@ -854,6 +853,7 @@ C..       CALL POLLINIT(0,11,PLZ,PPZ,1)
          close(77)
         endif
           CALL LINIT(0,11,PLZ,PPZ,1)
+        print *,'RIGHT HERE'
 c
 c  init radgen
 c
