@@ -848,12 +848,13 @@ C..  IF(PARI(LST(23)).EQ.0.0) PARI(LST(23))=FMAXFH
 C.. Call of the {\sc Pepsi}/{\sc Lepto} initialization routine 
 C..       CALL POLLINIT(0,11,PLZ,PPZ,1)
         if(cl_decay) then  ! use the updated decay file
+        print *,'RIGHT HERE'
          OPEN (unit=77,file='lund_upd.dat',status='UNKNOWN')
+         print *,'AFTER HERE'
          call luupda(2,77)
          close(77)
         endif
           CALL LINIT(0,11,PLZ,PPZ,1)
-        print *,'RIGHT HERE'
 c
 c  init radgen
 c
