@@ -841,6 +841,7 @@ C.. Simulation for a proton
           call printusage
           stop       
       endif
+      print *,'RIGHT HERE'
 C..
 C..  used in PEPSI
 C..  IF(PARI(LST(23)).EQ.0.0) PARI(LST(23))=FMAXFH
