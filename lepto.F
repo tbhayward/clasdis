@@ -70,7 +70,7 @@ c...note: if error flag lst(21) is non-zero, no proper event generated.
    15 k(i,2)=ksave(i)
       k(4,1)=1
       n=2
-
+      print *,'Ive gotten to here'
       if(lst(17).ne.0.and.lst(2).gt.0) then
 c...lepton and/or nucleon energy may vary from event to event,
         if(l17.eq.0) then
