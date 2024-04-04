@@ -167,7 +167,7 @@ cae...corrected what to do when lqgev or lqqbev fail. now make lqev.
         do 100 i=1,17
   100   spq(i)=pq(i)
   200   srlu=rlu(0)
-        
+
         if(srlu.gt.qqb+qg) then
           call lqev
         elseif(srlu.gt.qqb) then
@@ -262,7 +262,7 @@ cjr--       take care of small systems
       endif
 cjr--            
       if(lst(21).ne.0) goto 1
-
+      print *,'Ive gotten to here'
       do 400 i=1,n
 c...correct energy-momentum-mass mismatch for real particle
       if(p(i,5).lt.0.) goto 400
@@ -297,7 +297,7 @@ ctest if(lst(23).eq.2) parl(24)=parl(24)*dari30/dari29
           goto 90
         endif
       endif
-      print *,'Ive gotten to here'
+      
 c     call gulist(-1,2)
 c...transform to desired frame
 c     lst(28)=1
