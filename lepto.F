@@ -70,7 +70,7 @@ c...note: if error flag lst(21) is non-zero, no proper event generated.
    15 k(i,2)=ksave(i)
       k(4,1)=1
       n=2
-      print *,'Ive gotten to here'
+      
       if(lst(17).ne.0.and.lst(2).gt.0) then
 c...lepton and/or nucleon energy may vary from event to event,
         if(l17.eq.0) then
@@ -109,7 +109,7 @@ c...initial state momenta fixed from linit call.
       call leptox
 c...return if error or if no event to be generated.
       if(lst(21).ne.0.or.lst(2).le.0.or.lst(7).eq.-1) return
-
+      print *,'Ive gotten to here'
       if(pari(29).lt.0.5) then
 c...for first call, reset double precision counters.
         dari29=0.d0
