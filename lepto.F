@@ -242,7 +242,7 @@ c     &     write(6,*)'cascade error lst(21)= ',lst(21),
 c     &               ', new event generated'
         goto 1
       endif
-
+      print *,'Ive gotten to here'
 cjr--       soft colour interactions
       if(lst(34).eq.1) call lsci(parl(7))
       if(lst(21).ne.0) goto 1
@@ -262,7 +262,7 @@ cjr--       take care of small systems
       endif
 cjr--            
       if(lst(21).ne.0) goto 1
-      print *,'Ive gotten to here'
+
       do 400 i=1,n
 c...correct energy-momentum-mass mismatch for real particle
       if(p(i,5).lt.0.) goto 400
@@ -297,7 +297,7 @@ ctest if(lst(23).eq.2) parl(24)=parl(24)*dari30/dari29
           goto 90
         endif
       endif
-      
+
 c     call gulist(-1,2)
 c...transform to desired frame
 c     lst(28)=1
