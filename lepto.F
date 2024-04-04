@@ -203,7 +203,7 @@ c...qpm model without qcd corrections (cascade applied later).
   300   call lqev
         if(lst(21).ne.0) goto 300
       endif
-
+      print *,'Ive gotten to here'
       ns=mstu(1)
       mstu(1)=0
 c     call gulist(-3,2)
@@ -242,7 +242,7 @@ c     &     write(6,*)'cascade error lst(21)= ',lst(21),
 c     &               ', new event generated'
         goto 1
       endif
-      print *,'Ive gotten to here'
+
 cjr--       soft colour interactions
       if(lst(34).eq.1) call lsci(parl(7))
       if(lst(21).ne.0) goto 1
