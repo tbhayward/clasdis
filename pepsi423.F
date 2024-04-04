@@ -1933,9 +1933,9 @@ C...Generate an ordinary 2-jet event, q-event.
 
 C...Choose flavour of scattered quark and target remnant.
   200 CALL LFLAV(IFL,IFLR)
-      
+
       IF(LST(21).NE.0) GOTO 200
-      print *,'Im here in lqev'
+
       GOTO 210
 C...Entry used for Ariadne
       ENTRY LQEVAR(IFLAR,IFLRAR)
@@ -1953,6 +1953,7 @@ C...Entry used for Ariadne
      &.OR.(LST(8).GE.2.AND.MOD(LST(8),10).NE.9)) THEN
 C...Check if energy in jet system is enough for fragmentation.
         IF(W.LT.AMIFL+AMIFLR+PARJ(32)) GOTO 200
+        print *,'Im here in lqev'
         CALL LU2ENT(MSTU(1),IFL,IFLR,W)
         K(MSTU(1)+1,3)=2
       ELSE
