@@ -109,7 +109,7 @@ c...initial state momenta fixed from linit call.
       call leptox
 c...return if error or if no event to be generated.
       if(lst(21).ne.0.or.lst(2).le.0.or.lst(7).eq.-1) return
-      
+
       if(pari(29).lt.0.5) then
 c...for first call, reset double precision counters.
         dari29=0.d0
@@ -167,7 +167,7 @@ cae...corrected what to do when lqgev or lqqbev fail. now make lqev.
         do 100 i=1,17
   100   spq(i)=pq(i)
   200   srlu=rlu(0)
-  print *,'Ive gotten to here'
+        print *,'Ive gotten to here'
         if(srlu.gt.qqb+qg) then
           call lqev
         elseif(srlu.gt.qqb) then
