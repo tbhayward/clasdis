@@ -159,6 +159,7 @@ c     call gulist(-1,2)
       lst(26)=n+1
       lst(27)=0
       parl(25)=ulalps(q2)
+      print *,'Ive gotten to here'
       if(lst(8).eq.1.or.lst(8)/10.eq.1.or.mod(lst(8),10).eq.9) then
 c...probabilities for hard, first order qcd events.
 cae...corrected what to do when lqgev or lqqbev fail. now make lqev.
@@ -203,7 +204,7 @@ c...qpm model without qcd corrections (cascade applied later).
   300   call lqev
         if(lst(21).ne.0) goto 300
       endif
-      print *,'Ive gotten to here'
+
       ns=mstu(1)
       mstu(1)=0
 c     call gulist(-3,2)
