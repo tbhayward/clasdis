@@ -43,7 +43,7 @@ C.. Initialization of the lepto program
 
 C.. Event generation: 
        DO I = 1,NEVENT
-       print *,'Event ',NEVENT
+       print *,'Event ',I
 C.. Output of the number of generated events 
         IF (MOD(I,cl_nprint).EQ.0.and.cl_verblev.gt.0)
      6 WRITE(*,*) I,'  from ',NEVENT,PARL(23),PARL(24)
