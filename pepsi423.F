@@ -1952,8 +1952,8 @@ C...Entry used for Ariadne
       IF(LST(14).EQ.0.OR.IFLR.GT.10
      &.OR.(LST(8).GE.2.AND.MOD(LST(8),10).NE.9)) THEN
 C...Check if energy in jet system is enough for fragmentation.
+            print *,'Im here in lqev'
         IF(W.LT.AMIFL+AMIFLR+PARJ(32)) GOTO 200
-        print *,'Im here in lqev'
         CALL LU2ENT(MSTU(1),IFL,IFLR,W)
         K(MSTU(1)+1,3)=2
       ELSE
