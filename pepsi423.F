@@ -1952,7 +1952,7 @@ C...Entry used for Ariadne
       IF(LST(14).EQ.0.OR.IFLR.GT.10
      &.OR.(LST(8).GE.2.AND.MOD(LST(8),10).NE.9)) THEN
 C...Check if energy in jet system is enough for fragmentation.
-            print *,'Im here in lqev', W, AMIFL, AMIFLR, PARJ(32)
+            print *,'Im here in lqev', W2, W, AMIFL, AMIFLR, PARJ(32)
 C         IF(W.LT.AMIFL+AMIFLR+PARJ(32)) GOTO 200
 C...Set minimum energy for fragmentation to 1.078 right @ pion threshold
         IF(W.LT.1.078) GOTO 200
