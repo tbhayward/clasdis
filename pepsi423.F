@@ -1933,6 +1933,7 @@ C...Generate an ordinary 2-jet event, q-event.
 
 C...Choose flavour of scattered quark and target remnant.
   200 CALL LFLAV(IFL,IFLR)
+      print *,'Im here in lqev'
       IF(LST(21).NE.0) GOTO 200
 
       GOTO 210
