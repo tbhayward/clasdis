@@ -164,7 +164,7 @@ c     call gulist(-1,2)
 c...probabilities for hard, first order qcd events.
 cae...corrected what to do when lqgev or lqqbev fail. now make lqev.
          call lqcdpr(qg,qqb)
-         
+         print *,'Ive gotten to here'
         do 100 i=1,17
   100   spq(i)=pq(i)
   200   srlu=rlu(0)
@@ -204,7 +204,7 @@ c...qpm model without qcd corrections (cascade applied later).
   300   call lqev
         if(lst(21).ne.0) goto 300
       endif
-      print *,'Ive gotten to here'
+      print *,'Ive gotten all the way to here'
       ns=mstu(1)
       mstu(1)=0
 c     call gulist(-3,2)
