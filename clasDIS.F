@@ -38,12 +38,12 @@ C      CALL RNDMSTART(LFN)
 
 C.. Initialization of the lepto program 
       CALL DISINIT
-      print *,'YOOOOO WE PASSSED DISINIT ISNT THAT COOL'
+
       if(cl_verblev.gt.0) WRITE(*,*) 'NEVENT=',NEVENT
 
 C.. Event generation: 
        DO I = 1,NEVENT
-       
+       print *,'Event ',NEVENT
 C.. Output of the number of generated events 
         IF (MOD(I,cl_nprint).EQ.0.and.cl_verblev.gt.0)
      6 WRITE(*,*) I,'  from ',NEVENT,PARL(23),PARL(24)
@@ -852,9 +852,7 @@ C..       CALL POLLINIT(0,11,PLZ,PPZ,1)
          call luupda(2,77)
          close(77)
         endif
-        print *,'RIGHT HERE'
           CALL LINIT(0,11,PLZ,PPZ,1)
-          print *,'AFTER HERE'
 c
 c  init radgen
 c
