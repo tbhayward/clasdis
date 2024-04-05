@@ -922,8 +922,8 @@ c
 	stop ' Y<0 in VACPOL'
       endif
 
-      print *, ' '  ! Print an empty line before printing y and k
-      print *, 'y:', y, 'k:', k
+C       print *, ' '  ! Print an empty line before printing y and k
+C       print *, 'y:', y, 'k:', k
       sumh = (a(k)+b(k)*log(1.+c(k)*y)) *2.*pi/alfa
       vacpol=suml+sumh
 C       print *, 'sumh:', sumh
