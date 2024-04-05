@@ -1872,7 +1872,7 @@ c
 c
 c define the generated g*
 c
-        print *,'in-radgen eprim,thet,phi',gelee,gelet,gelef
+C         print *,'in-radgen eprim,thet,phi',gelee,gelet,gelef
         VPGEN(1)=-gelee*sin(gelet)*cos(gelef)
         VPGEN(2)=-gelee*sin(gelet)*sin(gelef)
         VPGEN(3)=-gelee*cos(gelet)

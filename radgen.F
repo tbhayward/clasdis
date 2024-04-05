@@ -151,7 +151,7 @@ C-----------------------------------
       xs=q2/(2.*0.938272*ys*e1)
 
       phil=asin(-vpgen(2)/sqrt(vpgen(1)**2+vpgen(2)**2))
-      print *,'in radgen:e1,Q2,ys,xs',e1,Q2,ys,xs,vpgen
+C       print *,'in radgen:e1,Q2,ys,xs',e1,Q2,ys,xs,vpgen
 c      stop
 
       if(ixytest.ge.0)then
