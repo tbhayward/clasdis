@@ -926,9 +926,9 @@ c
       print *, 'y:', y, 'k:', k
       sumh = (a(k)+b(k)*log(1.+c(k)*y)) *2.*pi/alfa
       vacpol=suml+sumh
-      print *, 'sumh:', sumh
-      print *, 'vacpol:', vacpol
-      print *, ' '  ! Print an empty line after the final calculation
+C       print *, 'sumh:', sumh
+C       print *, 'vacpol:', vacpol
+C       print *, ' '  ! Print an empty line after the final calculation
 
       end
 
