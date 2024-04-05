@@ -86,7 +86,7 @@ c
       nrr = 100
 *----------------------------
 * min. energy in the calo (resolution parameter)
-      demin=0.1
+      demin=0.01
 *----------------------------
        ap=2.*amp
        amp2=amp**2
