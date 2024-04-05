@@ -1952,7 +1952,6 @@ C...Entry used for Ariadne
       IF(LST(14).EQ.0.OR.IFLR.GT.10
      &.OR.(LST(8).GE.2.AND.MOD(LST(8),10).NE.9)) THEN
 C...Check if energy in jet system is enough for fragmentation.
-            print *,'Im here in lqev', W2, W, AMIFL, AMIFLR, PARJ(32)
 C         IF(W.LT.AMIFL+AMIFLR+PARJ(32)) GOTO 200
 C...Set minimum energy for fragmentation to 1.078 right @ pion threshold
         IF(W.LT.1.078) GOTO 200
@@ -9678,9 +9677,6 @@ C...Choose azimuthal angle (PHI) according to QCD matrix elements.
 * to avoid variable conflictions, a second keep element is necessary
 * with the same common block name (see LPTOU2)
 *
-*
-* to avoid variable conflictions, a second keep element is necessary
-* with the same common block name (see LPTOU2)
 *
       COMMON /LEPTOU/ CUT(14),LST(40),PARL(30),
      &                X,Y,W2,Q2,U
