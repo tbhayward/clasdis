@@ -60,7 +60,6 @@ c
           CALL LEPTOAK
        endif 
 c
-        print *,'after lepto'
         if(cl_verblev.gt.100.and.cl_verblev.lt.104) 
      $         call lulist(cl_verblev-100)
 C.. Message in case of an error in the event generation 
