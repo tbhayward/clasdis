@@ -38,14 +38,14 @@ c
 
 *     kill_elas_res =2, no rad corrections
 *     kill_elas_res =0, all rad corrections
-      kill_elas_res=-1
-C       kill_elas_res=0
+      kill_elas_res=0
 
 *     initialise the rad. correction part !
 *     =2 : fint cernlib extrapolation routine
 *     =1 : 2dim spline (is not supported in this version)
 *     =0 : make lookuptable
 *     = -1:	do not lookup table , calculate all events
+C       ixytest = 2
 *----------------------------
 *    =2 : polrad 2.0
       ige= 2
