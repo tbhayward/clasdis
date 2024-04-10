@@ -1,168 +1,35 @@
-      program radgentest
-      implicit none
-c$debugtm(8
-      CHARACTER*2 CTARGET
-      real VPGEN(4),VPRAD(4),PhRAD(4),q2tr,utr,weight
-      integer ixytst,ict,lst40,IEVT,NEVT
-      real aml2,p1,e1,eprime,theta,phi,pprime,s2,E_beam
 c
-      integer il,NZI(500),NPTI(500),ngang
-      real q2i(500),xbi(500),wi(500),yi(500),zi(500),pt2i(500),
-     6puri(500),multi(500),dmulti(500),rcdis(500),rcsds(500) 
-      common/gangl/ngang,NZI,NPTI,q2i,xbi,wi,yi,zi,pt2i,puri
-     6,multi,dmulti,rcdis,rcsds 
-c
-       integer ibin
-       common/ibin/ibin
-c
-
-      call CL_OPTIONS  
-
-      call readgangl(il,ibin)
-c
-      e1=10.6
-      E_beam=e1
-      aml2=(0.511d-3)**2
-      p1=sqrt(e1**2-aml2)
-c
-      ict=1
-      lst40=0
-c
-      if(ict.eq.1)ctarget='P'
-      if(ict.eq.2)ctarget='D'
-      if(ict.eq.3)ctarget='HI'
-      ixytst=0
-      print *,'RADGEN table created for Eb=',ctarget,e1,lst40,ixytst
-      call radgen_init(ctarget,e1,lst40,ixytst)
-
-
-      DO IEVT=1,NGANG
-
-      eprime=yi(ievt)*e1
-        s2=q2i(ievt)/(4.*E_beam*eprime)
-        theta=asin(sqrt(s2))*2.0
-      phi=0.0
-      pprime=sqrt(eprime**2-aml2)
-
-      vpgen(1)=  -pprime*sin(theta)*cos(phi)
-      vpgen(2)=  -pprime*sin(theta)*sin(phi)
-      vpgen(3)=p1-pprime*cos(theta)
-      vpgen(4)=e1-eprime
-
-       call RADGEN(e1,VPGEN,VPRAD,PhRAD,q2tr,utr,weight)
-      rcdis(ievt)=weight
-
-
-      ENDDO
-      call writegangl(ibin)
+      BLOCK DATA RADATA
+      implicit real*8(a-h,o-z)
+      common/cmp/amp,amp2,ap,ap2,aml,aml2,al2,amc2,amh,
+     .amt,tara,tarz,fermom,amm,amn,chbar,barn,isf20
+      common/p/pi,pi2,alfa,i1(8),i2(8)
+      data
+     .amm/2.7928456d0/,amn/-1.913148d0/,chbar/.197328d0/,barn/.389379d6/
+     .aml/.511000d-3/,aml2/.261112d-6/,al2/.522240d-6/,
+     .isf20/4/
+     .pi/3.1415926d0/,pi2/9.869604d0/,alfa/.729735d-2/,amc2/1.151857d0/,
+     .amp/.938272d0/,amh/.938272d0/,
+     .i2/1,1,1,2,3,3,1,2/,i1/3,3,4,4,3,3,3,3/
       end
-c
-c
-c
-      subroutine readgangl(il,ibin)
-      integer il,ngang,NZ,NPT
-      real q2,xb,w,y,z,pt2,pur,mult,dmult
-      integer NZI(500),NPTI(500)
-      real q2i(500),xbi(500),wi(500),yi(500),zi(500),pt2i(500)
-     6,puri(500),multi(500),dmulti(500),rcdis(500),rcsds(500) 
-c      
-      common/gangl/ngang,NZI,NPTI,q2i,xbi,wi,yi,zi,pt2i,puri
-     6,multi,dmulti,rcdis,rcsds 
-      integer ig
-      Character*120 Line(5)
-      common/ganglc/Line 
-c
-       character*50 fname
-c
-      if(ibin.lt.10) write(fname,'(A,i1,A)') 'mx256.',ibin,'.txt'
-      if(ibin.ge.10) write(fname,'(A,i2,A)') 'mx256.',ibin,'.txt'
-         Open(8, File=fname, Status='OLD', Err=101)
-      do ig=1,5
-      Read  (8, '(A)') Line(ig)
-      write  (6, '(A)') Line(ig)
-      enddo
-c reading the file
-c
-      il=1
-99    Read  (8, *,end=88) NZ,NPT,q2,xb,w,y,z,pt2,pur,mult,dmult 
-      write(6, '(2I3,12F12.4)') NZ,NPT,q2,xb,w,y,z,pt2,pur,mult,dmult
-      nzi(il)=NZ
-      NPti(il)=NPT
-      q2i(il)=q2
-      xbi(il)=xb
-      wi(il)=w
-      yi(il)=y
-      zi(il)=z
-      pt2i(il)=pt2
-      puri(il)=pur
-      multi(il)=mult
-      dmulti(il)=dmult
-      il=il+1
-      goto 99
-88    continue
-      print *,'Total number of points',il-1
-      ngang=il-1
-      close(8)
-      return
-101   print *,'ERROR READING FILE !!!!!!',fname
-      stop
-      end    
-c
-c
-      subroutine writegangl(ibin)
-      integer NZI(500),NPTI(500)
-      real q2i(500),xbi(500),wi(500),yi(500),zi(500),pt2i(500)
-     6,puri(500),multi(500),dmulti(500),rcdis(500),rcsds(500) 
-c      
-      common/gangl/ngang,NZI,NPTI,q2i,xbi,wi,yi,zi,pt2i,puri,multi
-     6,dmulti,rcdis,rcsds 
-      integer ig
-      Character*120 Line(5)
-      common/ganglc/Line 
-c
-       character*50 fname
-c
-      if(ibin.lt.10) write(fname,'(A,i1,A)') 'mx256.',ibin,'rc.txt'
-      if(ibin.ge.10) write(fname,'(A,i2,A)') 'mx256.',ibin,'rc.txt'
-         Open(9, File=fname, Status='UNKNOWN', Err=102)
-      do ig=1,5
-      Write  (9, '(A)') Line(ig)
-      enddo
-      Write  (9, '(I4)') ngang
-c write the file
-      print *,'ngang',ngang
-      do il=1,ngang
-       write(6, '(2I3,12F12.4)') NZi(il),NPTi(il),q2i(il),xbi(il),wi(il)
-     6,yi(il),zi(il),pt2i(il),puri(il),multi(il),dmulti(il)
-     6,rcdis(il),rcsds(il)
-       write(9, '(2I3,12F12.4)') NZi(il),NPTi(il),q2i(il),xbi(il),wi(il)
-     6,yi(il),zi(il),pt2i(il),puri(il),multi(il),dmulti(il)
-     6,rcdis(il),rcsds(il)
-      enddo
-c
-      close(9)
-      return
-102   print *,'ERROR OPEN FILE !!!!!!'      
-      return
-      end 
-c
-c
-c
-c   
+
 *72*********************************************************************
       subroutine radgen_init(CTARGET,ebeam,LST40,ixytst)
-      implicit none 
-c
+      implicit real*8(a-h,o-z)
+
 #include "tailcom.inc"
 #include "mcpolrad.inc"
-#include "cmpcom.inc"
-#include "radgenkeys.inc"
-      integer ige,ixytst
+
       real ebeam
       INTEGER LST40
-      CHARACTER*2 CTARGET
+      CHARACTER*(*) CTARGET
       CHARACTER*13 tname
-c
+      common/cmp/amp,amp2,ap,ap2,aml,aml2,al2,amc2,amh,
+     .amt,tara,tarz,fermom,amm,amn,chbar,barn,isf20
+      REAL plrun,pnrun
+      common/radgenkeys/plrun,pnrun,ixytest,kill_elas_res
+       integer ixytest,ixytst
+       ixytest=ixytst
 
 
 *     open(734,file='kill_elas_res.dat',status='old')
@@ -178,7 +45,7 @@ c
 *     =1 : 2dim spline (is not supported in this version)
 *     =0 : make lookuptable
 *     = -1: do not lookup table , calculate all events
-      ixytest = ixytst
+C       ixytest = 2
 *----------------------------
 *    =2 : polrad 2.0
       ige= 2
@@ -220,7 +87,7 @@ c
       nrr = 100
 *----------------------------
 * min. energy in the calo (resolution parameter)
-      demin=.1
+      demin=0.01
 *----------------------------
        ap=2.*amp
        amp2=amp**2
@@ -260,9 +127,9 @@ C-----------------------------------
       IMPLICIT NONE
 ***********************************************************
 *  INPUT :
-*      VPGEN(4) : virtuell photon 4 vector generated
+*      VPGEN(4) : virtuall photon 4 vector generated
 *  OUTPUT :
-*      VPRAD(4) : virtuell photon 4 vector   _TRUE_
+*      VPRAD(4) : virtuall photon 4 vector   _TRUE_
 *      PhRAD(4) : real rad. photon 4 vector
 *      q2tr   : true Q2
 *      Utr    : true U
@@ -270,9 +137,11 @@ C-----------------------------------
 #include "mcpolrad.inc"
 #include "phiout.inc"
 #include "tailcom.inc"
-#include "radgenkeys.inc"
       REAL VPGEN(4),VPRAD(4),PhRAD(4),q2tr,anutr
       REAL x,y,e1,q2,xs,ys,phil,weight
+      REAL plrun,pnrun
+      common/radgenkeys/plrun,pnrun,ixytest,kill_elas_res
+      integer ixytest,kill_elas_res
       INTEGER itagen
 *
 
@@ -283,8 +152,7 @@ C-----------------------------------
       xs=q2/(2.*0.938272*ys*e1)
 
       phil=asin(-vpgen(2)/sqrt(vpgen(1)**2+vpgen(2)**2))
-
-c      write(*,'(4f11.4)')q2,xs,ys,phi
+C       print *,'in radgen:e1,Q2,ys,xs',e1,Q2,ys,xs,vpgen
 c      stop
 
       if(ixytest.ge.0)then
@@ -298,9 +166,7 @@ c      stop
       else
       itagen=-1
       endif
-      print *,'ilyich',ys,xs,plrun,pnrun,ixytest,itagen
-c     write(*,'(a7,i4)')' ita = ',itagen
-
+c
       if(itagen.ne.0.and.abs(ixytest).ne.2)then
       iphi=0
       call mpolrad(e1,ys,xs,1.,plrun,pnrun,itagen)
@@ -341,10 +207,10 @@ c     write(*,'(a7,i4)')' ita = ',itagen
 *     needed for correction of hadronic distributions
 *
 #include "double.inc"
-c#include "concom.inc'
-c#include "kincom.inc'
+c#include "concom.inc"
+c#include "kincom.inc"
 #include "phiout.inc"
-c#include "gamcom.inc'
+c#include "gamcom.inc"
 #include "mcpolrad.inc"
       common/p/dpi,dpi2,dalfa,i1(8),i2(8)
 *
@@ -383,11 +249,11 @@ c#include "gamcom.inc'
      . ixytest,itagen,q2tr,anutr)
 c      implicit none
 #include "double.inc"
-*#include "concom.inc'
-*#include "kincom.inc'
-*#include "radcom.inc'
+*#include "concom.inc"
+*#include "kincom.inc"
+*#include "radcom.inc"
 #include "phiout.inc"
-*#include "gamcom.inc'
+*#include "gamcom.inc"
 #include "mcpolrad.inc"
 #include "cmpcom.inc"
 #include "sxycom.inc"
@@ -448,8 +314,6 @@ c       sicurr=scgen
        endif
 
        if(ita.ne.0)then
-      call grndm(rnd,1)
-      r1=rnd(1)*dsitkm(ndxtkm(ita),ita)
        do ktk=1,ndxtkm(ita)
 c          print *,dsitkm(ktk,ita),r1,ndxtkm(ita)
           if (r1.le.dsitkm(ktk,ita)) then
@@ -526,7 +390,7 @@ c      pause
           if (dphpoi.le.dsumph(kph)) then
              dphk1=(dphpoi-dsumph(kph-1))/
      +                     (dsumph(kph)-dsumph(kph-1))
-             dphk=dphi(kph)+(dphk1-1.0d0)*ddephi(kph-1)
+             dphk=dphi(kph)+(dphk1-1.0d0)*ddephi(kph)
              goto 40
           endif
        enddo
@@ -565,10 +429,6 @@ c      pause
          dplabg(1)=dgplx*dcphi-dgply*dsphi
          dplabg(2)=dgplx*dsphi+dgply*dcphi
          dplabg(3)=dgplz
-
-
-        write(*,'(i5,5f8.3)')ita,dom,dthg,dphig
-
        else
        q2tr=2d0*amh*erad*xrad*yrad
        anutr=yrad*erad
@@ -645,7 +505,6 @@ c           write(*,'(i5,5f8.3)')ita,xs,ys,q2tr,anutr,sigcor
      .                  ,uncurr,plcurr,pncurr,itagen)
       implicit real*8(a-h,o-z)
       real e1curr,yscurr,xscurr,uncurr,plcurr,pncurr
-
       common/cmp/amp,amp2,ap,ap2,aml,aml2,al2,amc2,amh,
      .amt,tara,tarz,fermom,amm,amn,chbar,barn,isf20
       common/sxy/s,x,sx,sxp,y,ym,w2,als,alx,alm,aly,
@@ -653,9 +512,11 @@ c           write(*,'(i5,5f8.3)')ita,xs,ys,q2tr,anutr,sigcor
       common/p/pi,pi2,alfa,i1(8),i2(8)
       common/tail/un,pl,pn,qn,ita,isf1,isf2,isf3,ire
 #include "mcpolrad.inc"
-#include "radgenkeys.inc"
       common/delta5/delta5
       common/tmp/itmp
+      REAL plrun,pnrun
+      common/radgenkeys/plrun,pnrun,ixytest,kill_elas_res
+
       dimension tai(5),si(2,3),si0(2,3),tls(2,3,4)
 
       itmp=1
@@ -781,26 +642,26 @@ c     .  write(*,*)' tpro',tnuc,tls(il,in,3),itagen
        sigrad=si(il,in)
        sig1g=si0(il,in)
       endif
-      write(*,'(1x,6g11.4)')sig1g,sigrad,tine,tnuc,tpro,tbor
+c      write(*,'(1x,6g11.4)')sig1g,sigrad,tine,tnuc,tpro,tbor
       sigcor=sigrad/sig1g
        if(kill_elas_res.eq.2)sigcor=1.
 
-      print *,sngl(s),sngl(xs),sngl(ys)
-      print *,' kill_elas_res=',kill_elas_res,amc2
-      print *,' sig1g=',sig1g,sib
-      print *,' sigrad=',sigrad,sig
-      print *,' tine =',tine
-      print *,' tai(4) =',tai(4)
-      print *,' tnuc =',tnuc
-      print *,' tpro =',tpro
-      print *,' tbor =',tbor
-      print *,' sig1g=',sig1g
-      print *,' sigcor=',sigcor
-      print *,' delta=',alfa/pi*delta
-      print *,' vac  =',vac
-      print *,' vertex=',vertex
-      print *,' small=',small
-      print *,' tai(4)= ',sib*log(redfac)
+c      print *,sngl(s),sngl(xs),sngl(ys)
+c      print *,' kill_elas_res=',kill_elas_res,amc2
+c      print *,' sig1g=',sig1g,sib
+c      print *,' sigrad=',sigrad,sig
+c      print *,' tine =',tine
+c      print *,' tai(4) =',tai(4)
+c      print *,' tnuc =',tnuc
+c      print *,' tpro =',tpro
+c      print *,' tbor =',tbor
+c      print *,' sig1g=',sig1g
+c      print *,' sigcor=',sigcor
+c      print *,' delta=',alfa/pi*delta
+c      print *,' vac  =',vac
+c      print *,' vertex=',vertex
+c      print *,' small=',small
+c      print *,' tai(4)= ',sib*log(redfac)
 cc    sigt1=sib*alfa/pi*delta+tai(5)
 cc    sigt2=sib*(log(redfac)+vertex+vac+small)
 cc    sigt3=sib*alfa/pi*(delta+delta5)
@@ -901,7 +762,7 @@ c
      .sqls,sqlx,sqly,sqlm,allm,an,tamin,tamax,xs,ys,tpl,tmi
       common/p/pi,pi2,alfa,i1(8),i2(8)
       common/tail/un,pl,pn,qn,ita,isf1,isf2,isf3,ire
-      common/print/ipri1
+       common/print/ipri1
       dimension sfm0(8),tm(8)
        ipri1=1
       call strf(0d0,0d0,sfm0)
@@ -980,6 +841,7 @@ c
 c      print *,' vacl_my_old=',alfa/pi*suml
 c      print *,' vach_my_old=',alfa/pi*sumh
 c      print *,' vac_my_old=',alfa/pi*sum
+      print *,'in-radgen-deltas call vacpol',y
       sum=vacpol(y)
 c      print *,' vac_my_new=',alfa/pi*sum
 
@@ -1057,11 +919,17 @@ c
       elseif(y .ge. 8317.44d0)then
       k=5
       else
+        print *,'y is',y,k,suml
       stop ' Y<0 in VACPOL'
       endif
 
+C       print *, ' '  ! Print an empty line before printing y and k
+C       print *, 'y:', y, 'k:', k
       sumh = (a(k)+b(k)*log(1.+c(k)*y)) *2.*pi/alfa
       vacpol=suml+sumh
+C       print *, 'sumh:', sumh
+C       print *, 'vacpol:', vacpol
+C       print *, ' '  ! Print an empty line after the final calculation
 
       end
 
@@ -1345,7 +1213,13 @@ c      print *,' isf=',isf,' irr=',irr,podinl
 c      write(*,*)' isf=',isf,' irr=',irr,podinl,sfm(isf)
     1 continue
    11 continue
-      podinl=podinl*(1.+alfa/pi*vacpol(Y+R*ta))
+C       print *, 'Y:', Y, ', R:', R, ', ta:', ta
+      if (R .ne. R .or. ta .ne. ta) then
+         podinl = podinl * (1. + alfa / pi * vacpol(Y))
+      else
+         podinl = podinl * (1. + alfa / pi * vacpol(Y + R * ta))
+      endif
+
 c      if(itmp.eq.1)then
 c     write(*,*)podinl,tm(1,1),amp,ap,ap2,aml2,aml
 c     itmp=0
@@ -2212,7 +2086,6 @@ c
       end
 
 
-
 ****************** ddexp **************************************
 
       double precision function ddexp(x)
@@ -2414,8 +2287,9 @@ c$debug
        do nny=nt,1,-1
         if(ys.ge.y(nny))goto 10
        enddo
- 5     print *,' ys=',ys,' out of the region'
-       stop
+ 5     print *,' ys=',ys,' out of the region',nny,nt,xs,pl,pn,ixytest,itagen
+        stop
+
 10     if(nny.eq.nt)goto 5
 
        if(ixytest.eq.1)then
@@ -2503,16 +2377,17 @@ c            scgen=rr1
                wrk(ix,iy)=width(ix,iy,ii,itagen)
              enddo
              enddo
-      do iittkk=1,ntk
-             ddetkm((ii-1)*ntk+iittkk,itagen)=fint(2,xym,na,a,wrk)
-             enddo
+             ddetkm(ii,itagen)=fint(2,xym,na,a,wrk)
           enddo
 
-          dcvtkm(1,itagen)=ddetkm(1,itagen)/2d0
-      do iittkk=2,7*ntk
-          dcvtkm(iittkk,itagen)=dcvtkm(iittkk-1,itagen)+
-     6(ddetkm(iittkk-1,itagen)+ddetkm(iittkk,itagen))/2d0
-           enddo
+      do iittkk=1,7*ntk
+         ssuumm=0.
+         do itoo=1,iittkk/ntk
+          ssuumm=ssuumm+ddetkm(itoo,itagen)*ntk
+         enddo
+         dcvtkm(iittkk,itagen)=ssuumm+ddetkm((iittkk-1)/ntk+1,itagen)
+     .       *(mod(iittkk,ntk)-0.5)
+      enddo
 
 
       end
@@ -2532,7 +2407,7 @@ c            scgen=rr1
        character*13 tname
 
       data lun/66/ymax/0.951/ymin/0.2/
-     .          xmax/0.661/xmin/0.12/
+     .          xmax/0.7/xmin/0.05/
 
       open (unit=lun,file=tname)
 
@@ -2559,8 +2434,8 @@ cc           ylim=(bmc2-bmp**2)/(2.*bmp*e1*(1d0-x(ix,iy)))
            endif
            xmaxi=min(1.-dmuc/ys,(1.-ys)/dmu/ys)-1d-4
            xixiy=min(xmaxi,x(ix,iy))
-           write(*,'(7g11.4)')xmaxi,xixiy,x(ix,iy)
-     .         ,1.-dmuc/ys,(1.-ys)/dmu/ys,dmuc,dmu
+c          write(*,'(7g11.4)')xmaxi,xixiy,x(ix,iy)
+c     .        ,1.-dmuc/ys,(1.-ys)/dmu/ys,dmuc,dmu
            iphi=0
            call mpolrad(e1,y(iy),xixiy,1.,plrun,pnrun,-1)
            tbor_u(ix,iy)=tbor
@@ -2570,8 +2445,8 @@ cc           ylim=(bmc2-bmp**2)/(2.*bmp*e1*(1d0-x(ix,iy)))
            tnuc_u(ix,iy)=tnuc
            tpro_u(ix,iy)=tpro
 
-            write(*,'(a3,6g12.4)')' u ',
-     .             y(iy),x(ix,iy),sig1g,tnuc,tpro,sigrad
+c           write(*,'(a3,6g12.4)')' u ',
+c     .            y(iy),x(ix,iy),sig1g,tnuc,tpro,sigrad
 
            write(lun,'(1x,14g11.4)')x(ix,iy),y(iy)
      .       ,sig1g_u(ix,iy),sigrad_u(ix,iy),tbor_u(ix,iy)
@@ -2614,7 +2489,7 @@ cc           ylim=(bmc2-bmp**2)/(2.*bmp*e1*(1d0-x(ix,iy)))
        endif
       do iy=1,nt
       do ix=1,nt
-        print *,iy,ix
+        print *,'radgen grid: filling ',iy,ix
            read(lun,*)x(ix,iy),y(iy)
      .       ,sig1g_u(ix,iy),sigrad_u(ix,iy),tbor_u(ix,iy)
      .       ,tine_u(ix,iy),tnuc_u(ix,iy),tpro_u(ix,iy)
@@ -2650,32 +2525,3 @@ cc           ylim=(bmc2-bmp**2)/(2.*bmp*e1*(1d0-x(ix,iy)))
 
        end
 
-       SUBROUTINE CL_OPTIONS
-       implicit none
-       character*20 cnumber
-       integer ibin,i,numopts,IARGC,NCDECI
-       common/ibin/ibin
-      numopts  = IARGC()
-c      
-      ibin=6
-      if(numopts.gt.0 ) then
-        i=0
-      else
-        goto 2
-      endif
- 1    i=i+1
-        CALL GETARG(i,cnumber)
-        if(cnumber.eq.'--bin'.and.i.lt.numopts) then
-          i=i+1
-          CALL GETARG(i,cnumber)
-          ibin=NCDECI(cnumber)
-        else
-          print *,'use --bin bin#'
-          stop
-        endif
-        if(i.lt. numopts) goto 1
- 2      continue
-c
-        print *,'bin#', ibin
-        return 
-        end
